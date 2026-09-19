@@ -46,7 +46,7 @@
 
 ### 📊 Advanced GitHub Metrics
 <div align="center">
-  <img src="https://raw.githubusercontent.com/workingguy4321/workingguy4321/metrics/github-metrics.svg" alt="GitHub Metrics" width="100%" />
+  <img src="https://raw.githubusercontent.com/workingguy4321/workingguy4321/main/github-metrics.svg" alt="GitHub Metrics" width="100%" />
 </div>
 
 ---
