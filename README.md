@@ -13,6 +13,13 @@
 
 ---
 
+### 🏆 GitHub Trophies
+<div align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=workingguy4321&theme=dracula&margin-w=15&no-frame=true&no-bg=true" alt="Trophies" />
+</div>
+
+---
+
 ### 👨‍💻 About Me & My Mission
 <div align="right">
   <img src="https://media.giphy.com/media/qgQUggCGvnPZG/giphy.gif" width="250" align="right" alt="Hacker GIF">
