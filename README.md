@@ -13,16 +13,28 @@
 
 ---
 
-### 🏆 GitHub Trophies
+### 📊 GitHub Stats
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=workingguy4321&theme=dracula&margin-w=15&no-frame=true&no-bg=true" alt="Trophies" />
+  <img src="https://github-readme-stats.vercel.app/api?username=workingguy4321&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117" alt="GitHub Stats" width="48%" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=workingguy4321&theme=tokyonight&hide_border=true&background=0D1117" alt="GitHub Streak" width="48%" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=workingguy4321&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117" alt="Top Languages" width="40%" />
+</div>
+
+---
+
+### 📈 Activity Graph
+<div align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=workingguy4321&theme=tokyo-night&hide_border=true&bg_color=0D1117" alt="Activity Graph" width="100%" />
 </div>
 
 ---
 
 ### 👨‍💻 About Me & My Mission
 <div align="right">
-  <img src="https://media.giphy.com/media/qgQUggCGvnPZG/giphy.gif" width="250" align="right" alt="Hacker GIF">
+  <img src="https://raw.githubusercontent.com/TheDudeThatCode/TheDudeThatCode/master/Assets/Developer.gif" width="250" align="right" alt="Coder GIF">
 </div>
 
 * 🔭 I’m currently working on web development projects like **FormatShift** and **Secret Messenger**.
