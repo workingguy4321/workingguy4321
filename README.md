@@ -36,7 +36,7 @@
 ### 🛠️ Tech Stack & Skills
 <div align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=html,css,js,python,androidstudio,linux,vscode,vercel&theme=dark&perline=8" />
+    <img src="https://skillicons.dev/icons?i=html,css,js,python,java,kotlin,c,cpp,mysql,androidstudio,linux,vscode,vercel&theme=dark&perline=7" />
   </a>
 </div>
 
