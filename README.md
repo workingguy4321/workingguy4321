@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&pause=1000&color=00D1FF&center=true&vCenter=true&width=435&lines=Hi%2C+I'm+workingguy4321!+👋;Passionate+Web+Developer;Always+learning+new+things;Welcome+to+my+GitHub!" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&pause=1000&color=00D1FF&center=true&vCenter=true&width=520&lines=Hi%2C+I'm+workingguy4321!+👋;Building+Windows+Antivirus+🛡️;Developer+%26+Security+Researcher;Welcome+to+my+GitHub!" alt="Typing SVG" />
 </div>
 
 <br>
@@ -37,9 +37,10 @@
   <img src="https://raw.githubusercontent.com/TheDudeThatCode/TheDudeThatCode/master/Assets/Developer.gif" width="250" align="right" alt="Coder GIF">
 </div>
 
-* 🔭 I’m currently working on web development projects like **FormatShift** and **Secret Messenger**.
-* 🌱 I’m constantly learning and exploring new technologies.
-* 🛡️ I have a strong interest in **Cybersecurity and CTF events**.
+* 🛡️ I’m currently engineering a custom **Windows Antivirus & Threat Detection System**.
+* 🔭 Also building web applications like **FormatShift** and **Secret Messenger**.
+* 🔍 Exploring Windows internals, process monitoring, and malware signature/heuristic detection.
+* ⚔️ Passionate about **Cybersecurity, Reverse Engineering, and CTF events**.
 * 💬 Ask me about **HTML, Web Dev, and Problem Solving**.
 * 📫 How to reach me: [workingguy4321@gmail.com](mailto:workingguy4321@gmail.com)
 
