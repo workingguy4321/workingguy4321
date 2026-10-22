@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=200&section=header&text=Welcome%20to%20my%20Profile!&fontSize=50&fontAlignY=35&animation=twinkling&fontColor=ffffff" />
 </div>
 
@@ -43,6 +43,17 @@
 * ⚔️ Passionate about **Cybersecurity, Reverse Engineering, and CTF events**.
 * 💬 Ask me about **HTML, Web Dev, and Problem Solving**.
 * 📫 How to reach me: [workingguy4321@gmail.com](mailto:workingguy4321@gmail.com)
+
+---
+
+---
+
+### 🚀 SPACE DEFENDER ARCADE [INTERACTIVE SHOOTER]
+<p align="center"><i>Hover your mouse over the enemy ships to lock-on and fire plasma lasers!</i></p>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/workingguy4321/workingguy4321/main/space-shooter.svg" width="100%" alt="Space Defender Game" />
+</div>
 
 ---
 
