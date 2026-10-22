@@ -1,1 +1,272 @@
-﻿
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="spaceBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#050814" />
+      <stop offset="50%" stop-color="#0a1128" />
+      <stop offset="100%" stop-color="#02040a" />
+    </linearGradient>
+
+    <linearGradient id="laserGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ff0055" stop-opacity="0" />
+      <stop offset="50%" stop-color="#ff007f" />
+      <stop offset="100%" stop-color="#00ffff" />
+    </linearGradient>
+
+    <filter id="laserGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style>
+      .game-canvas {
+        cursor: crosshair;
+      }
+
+      .star {
+        animation: starTwinkle 2s ease-in-out infinite alternate;
+      }
+      @keyframes starTwinkle {
+        0% { opacity: 0.2; }
+        100% { opacity: 1; }
+      }
+
+      .player-ship {
+        transform-origin: 400px 300px;
+        animation: shipSway 3s ease-in-out infinite alternate;
+        transition: transform 0.2s ease-out;
+      }
+      @keyframes shipSway {
+        0% { transform: translateX(-15px) rotateZ(-2deg); }
+        100% { transform: translateX(15px) rotateZ(2deg); }
+      }
+
+      .target-alien {
+        cursor: crosshair;
+        transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .alien-1 { transform-origin: 160px 110px; animation: alienFloat 2.2s ease-in-out infinite alternate; }
+      .alien-2 { transform-origin: 320px 85px; animation: alienFloat 2.6s ease-in-out infinite alternate 0.5s; }
+      .alien-3 { transform-origin: 480px 85px; animation: alienFloat 2.4s ease-in-out infinite alternate 0.2s; }
+      .alien-4 { transform-origin: 640px 110px; animation: alienFloat 2.8s ease-in-out infinite alternate 0.8s; }
+
+      @keyframes alienFloat {
+        0% { transform: translateY(-6px); }
+        100% { transform: translateY(6px); }
+      }
+
+      .laser-beam {
+        opacity: 0;
+        stroke: url(#laserGrad);
+        stroke-width: 4;
+        filter: url(#laserGlow);
+        stroke-dasharray: 12 6;
+        transition: opacity 0.15s ease;
+      }
+
+      .explosion-burst {
+        opacity: 0;
+        transition: opacity 0.2s ease, transform 0.3s ease;
+        transform-origin: center;
+      }
+
+      .hit-score {
+        opacity: 0;
+        font-family: 'Courier New', monospace, sans-serif;
+        font-size: 14px;
+        fill: #ffe600;
+        font-weight: bold;
+        transition: opacity 0.2s ease, transform 0.3s ease;
+      }
+
+      .target-alien-1:hover ~ .laser-group #laser-1 {
+        opacity: 1;
+        animation: laserRapid 0.2s linear infinite;
+      }
+      .target-alien-1:hover #alien-body-1 {
+        transform: scale(0.6) rotate(45deg);
+        opacity: 0.2;
+      }
+      .target-alien-1:hover #boom-1 {
+        opacity: 1;
+        transform: scale(1.4);
+      }
+      .target-alien-1:hover #score-1 {
+        opacity: 1;
+        transform: translateY(-20px);
+      }
+
+      .target-alien-2:hover ~ .laser-group #laser-2 {
+        opacity: 1;
+        animation: laserRapid 0.2s linear infinite;
+      }
+      .target-alien-2:hover #alien-body-2 {
+        transform: scale(0.6) rotate(-45deg);
+        opacity: 0.2;
+      }
+      .target-alien-2:hover #boom-2 {
+        opacity: 1;
+        transform: scale(1.4);
+      }
+      .target-alien-2:hover #score-2 {
+        opacity: 1;
+        transform: translateY(-20px);
+      }
+
+      .target-alien-3:hover ~ .laser-group #laser-3 {
+        opacity: 1;
+        animation: laserRapid 0.2s linear infinite;
+      }
+      .target-alien-3:hover #alien-body-3 {
+        transform: scale(0.6) rotate(45deg);
+        opacity: 0.2;
+      }
+      .target-alien-3:hover #boom-3 {
+        opacity: 1;
+        transform: scale(1.4);
+      }
+      .target-alien-3:hover #score-3 {
+        opacity: 1;
+        transform: translateY(-20px);
+      }
+
+      .target-alien-4:hover ~ .laser-group #laser-4 {
+        opacity: 1;
+        animation: laserRapid 0.2s linear infinite;
+      }
+      .target-alien-4:hover #alien-body-4 {
+        transform: scale(0.6) rotate(-45deg);
+        opacity: 0.2;
+      }
+      .target-alien-4:hover #boom-4 {
+        opacity: 1;
+        transform: scale(1.4);
+      }
+      .target-alien-4:hover #score-4 {
+        opacity: 1;
+        transform: translateY(-20px);
+      }
+
+      @keyframes laserRapid {
+        0% { stroke-dashoffset: 0; }
+        100% { stroke-dashoffset: -36; }
+      }
+
+      .retro-text {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+      }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#spaceBg)" rx="16" stroke="#00f0ff" stroke-width="2"/>
+
+  <g fill="#ffffff">
+    <circle class="star" cx="50" cy="40" r="1.5" style="animation-delay: 0.2s;"/>
+    <circle class="star" cx="120" cy="180" r="1.2" style="animation-delay: 0.7s;"/>
+    <circle class="star" cx="210" cy="60" r="2" style="animation-delay: 1.1s;"/>
+    <circle class="star" cx="280" cy="220" r="1" style="animation-delay: 0.4s;"/>
+    <circle class="star" cx="390" cy="40" r="1.8" style="animation-delay: 1.5s;"/>
+    <circle class="star" cx="520" cy="210" r="1.3" style="animation-delay: 0.3s;"/>
+    <circle class="star" cx="610" cy="70" r="2" style="animation-delay: 0.9s;"/>
+    <circle class="star" cx="710" cy="190" r="1.2" style="animation-delay: 1.3s;"/>
+    <circle class="star" cx="750" cy="45" r="1.6" style="animation-delay: 0.6s;"/>
+  </g>
+
+  <g class="retro-text" font-size="12">
+    <text x="30" y="32" fill="#ff0055">SCORE: 84,200</text>
+    <text x="400" y="32" text-anchor="middle" fill="#00ffff">★ SPACE DEFENDER: AIM &amp; HOVER TO FIRE ★</text>
+    <text x="770" y="32" text-anchor="end" fill="#00ffcc">SHIELDS: 100%</text>
+  </g>
+  <line x1="20" y1="42" x2="780" y2="42" stroke="#1e293b" stroke-width="1.5"/>
+
+  <g class="game-canvas">
+    <g class="target-alien target-alien-1 alien-1" id="target-1">
+      <circle cx="160" cy="110" r="42" fill="transparent"/>
+      <g id="alien-body-1" style="transition: all 0.3s ease;">
+        <polygon points="160,82 185,108 175,130 145,130 135,108" fill="#ff0055" stroke="#ffffff" stroke-width="2" filter="url(#laserGlow)"/>
+        <circle cx="152" cy="106" r="4" fill="#00ffff"/>
+        <circle cx="168" cy="106" r="4" fill="#00ffff"/>
+        <line x1="148" y1="120" x2="172" y2="120" stroke="#000000" stroke-width="2"/>
+      </g>
+      <g class="explosion-burst" id="boom-1">
+        <circle cx="160" cy="110" r="28" fill="none" stroke="#ffe600" stroke-width="4" stroke-dasharray="8 4"/>
+        <polygon points="160,80 166,104 190,110 166,116 160,140 154,116 130,110 154,104" fill="#ff0055"/>
+      </g>
+      <text class="hit-score" id="score-1" x="160" y="90" text-anchor="middle">+500 PTS!</text>
+    </g>
+
+    <g class="target-alien target-alien-2 alien-2" id="target-2">
+      <circle cx="320" cy="85" r="42" fill="transparent"/>
+      <g id="alien-body-2" style="transition: all 0.3s ease;">
+        <rect x="302" y="68" width="36" height="34" rx="6" fill="#a855f7" stroke="#ffffff" stroke-width="2" filter="url(#laserGlow)"/>
+        <circle cx="313" cy="82" r="4" fill="#ffe600"/>
+        <circle cx="327" cy="82" r="4" fill="#ffe600"/>
+        <line x1="306" y1="68" x2="298" y2="56" stroke="#a855f7" stroke-width="3"/>
+        <line x1="334" y1="68" x2="342" y2="56" stroke="#a855f7" stroke-width="3"/>
+      </g>
+      <g class="explosion-burst" id="boom-2">
+        <circle cx="320" cy="85" r="28" fill="none" stroke="#00ffff" stroke-width="4" stroke-dasharray="8 4"/>
+        <polygon points="320,55 326,79 350,85 326,91 320,115 314,91 290,85 314,79" fill="#ffe600"/>
+      </g>
+      <text class="hit-score" id="score-2" x="320" y="65" text-anchor="middle">+1000 PTS!</text>
+    </g>
+
+    <g class="target-alien target-alien-3 alien-3" id="target-3">
+      <circle cx="480" cy="85" r="42" fill="transparent"/>
+      <g id="alien-body-3" style="transition: all 0.3s ease;">
+        <rect x="462" y="68" width="36" height="34" rx="6" fill="#00ffcc" stroke="#ffffff" stroke-width="2" filter="url(#laserGlow)"/>
+        <circle cx="473" cy="82" r="4" fill="#ff0055"/>
+        <circle cx="487" cy="82" r="4" fill="#ff0055"/>
+        <line x1="466" y1="68" x2="458" y2="56" stroke="#00ffcc" stroke-width="3"/>
+        <line x1="494" y1="68" x2="502" y2="56" stroke="#00ffcc" stroke-width="3"/>
+      </g>
+      <g class="explosion-burst" id="boom-3">
+        <circle cx="480" cy="85" r="28" fill="none" stroke="#ff0055" stroke-width="4" stroke-dasharray="8 4"/>
+        <polygon points="480,55 486,79 510,85 486,91 480,115 474,91 450,85 474,79" fill="#00ffff"/>
+      </g>
+      <text class="hit-score" id="score-3" x="480" y="65" text-anchor="middle">+1000 PTS!</text>
+    </g>
+
+    <g class="target-alien target-alien-4 alien-4" id="target-4">
+      <circle cx="640" cy="110" r="42" fill="transparent"/>
+      <g id="alien-body-4" style="transition: all 0.3s ease;">
+        <polygon points="640,82 665,108 655,130 625,130 615,108" fill="#ffe600" stroke="#ffffff" stroke-width="2" filter="url(#laserGlow)"/>
+        <circle cx="632" cy="106" r="4" fill="#a855f7"/>
+        <circle cx="648" cy="106" r="4" fill="#a855f7"/>
+        <line x1="628" y1="120" x2="652" y2="120" stroke="#000000" stroke-width="2"/>
+      </g>
+      <g class="explosion-burst" id="boom-4">
+        <circle cx="640" cy="110" r="28" fill="none" stroke="#ffe600" stroke-width="4" stroke-dasharray="8 4"/>
+        <polygon points="640,80 646,104 670,110 646,116 640,140 634,116 610,110 634,104" fill="#ff0055"/>
+      </g>
+      <text class="hit-score" id="score-4" x="640" y="90" text-anchor="middle">+500 PTS!</text>
+    </g>
+
+    <g class="laser-group">
+      <line class="laser-beam" id="laser-1" x1="390" y1="260" x2="160" y2="110" />
+      <line class="laser-beam" id="laser-2" x1="395" y1="260" x2="320" y2="85" />
+      <line class="laser-beam" id="laser-3" x1="405" y1="260" x2="480" y2="85" />
+      <line class="laser-beam" id="laser-4" x1="410" y1="260" x2="640" y2="110" />
+    </g>
+
+    <g class="player-ship">
+      <rect x="382" y="255" width="6" height="24" rx="2" fill="#00ffff" filter="url(#laserGlow)"/>
+      <rect x="412" y="255" width="6" height="24" rx="2" fill="#00ffff" filter="url(#laserGlow)"/>
+
+      <polygon points="400,240 425,290 415,310 385,310 375,290" fill="#00f0ff" stroke="#ffffff" stroke-width="2"/>
+      <polygon points="400,255 410,280 390,280" fill="#050814"/>
+
+      <polygon points="375,290 340,315 365,325 385,310" fill="#ff0055"/>
+      <polygon points="425,290 460,315 435,325 415,310" fill="#ff0055"/>
+
+      <polygon points="392,310 408,310 400,332" fill="#ffe600" filter="url(#laserGlow)"/>
+      <polygon points="395,310 405,310 400,324" fill="#ffffff"/>
+    </g>
+  </g>
+
+  <text class="retro-text" x="400" y="348" text-anchor="middle" font-size="11" fill="#ffe600">⚡ HOVER MOUSE OVER ANY ENEMY SHIP TO FIRE CONTINUOUS LASERS! ⚡</text>
+</svg>
