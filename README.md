@@ -48,14 +48,20 @@
 
 ---
 
-### 🚀 SPACE DEFENDER ARCADE [INTERACTIVE SHOOTER]
-<p align="center"><i>Hover your mouse over the enemy ships to lock-on and fire plasma lasers!</i></p>
+---
+
+### 🚀 SPACE DEFENDER ARCADE [PLAYABLE GAME]
+<p align="center"><i>Hover your mouse over the enemy ships to lock-on & fire, or launch the full arcade mode!</i></p>
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/workingguy4321/workingguy4321/main/space-shooter.svg" width="100%" alt="Space Defender Game" />
 </div>
 
----
+<p align="center">
+  <a href="https://workingguy4321.github.io/workingguy4321/game/" target="_blank">
+    <img src="https://img.shields.io/badge/%F0%9F%9A%80%20PLAY_FULL_ARCADE_GAME-CLICK_TO_LAUNCH-00f0ff?style=for-the-badge&logo=gamepad&logoColor=black" />
+  </a>
+</p>
 
 ### 🛠️ Tech Stack & Skills
 <div align="center">
