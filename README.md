@@ -50,27 +50,20 @@
 
 ---
 
-### 🚀 SPACE DEFENDER ARCADE [PLAYABLE GAME]
-<p align="center"><i>Hover your mouse over the enemy ships to lock-on & fire, or launch the full arcade mode!</i></p>
+---
+
+### 🐍 CYBER SNAKE ARCADE [INTERACTIVE & PLAYABLE]
+<p align="center"><i>Hover over the glowing apples below to make the snake chomp them, or launch the full playable arcade game!</i></p>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/workingguy4321/workingguy4321/main/space-shooter.svg" width="100%" alt="Space Defender Game" />
+  <img src="https://raw.githubusercontent.com/workingguy4321/workingguy4321/main/interactive-snake.svg" width="100%" alt="Interactive Snake Game" />
 </div>
 
 <p align="center">
   <a href="https://workingguy4321.github.io/workingguy4321/game/" target="_blank">
-    <img src="https://img.shields.io/badge/%F0%9F%9A%80%20PLAY_FULL_ARCADE_GAME-CLICK_TO_LAUNCH-00f0ff?style=for-the-badge&logo=gamepad&logoColor=black" />
+    <img src="https://img.shields.io/badge/%F0%9F%90%8D%20PLAY_CYBER_SNAKE_GAME-CLICK_TO_PLAY-00ff88?style=for-the-badge&logo=gamepad&logoColor=black" />
   </a>
 </p>
-
-### 🛠️ Tech Stack & Skills
-<div align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=html,css,js,python,java,kotlin,c,cpp,mysql,androidstudio,linux,vscode,vercel&theme=dark&perline=7" />
-  </a>
-</div>
-
----
 
 ### 🐍 GitHub Contribution Snake
 <div align="center">
