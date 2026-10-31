@@ -13,7 +13,7 @@
 
 <br>
 
-<!-- Flying & Power Boosting Pokemon -->
+<!-- Flying & Power Boosting Gengar Pokemon -->
 <div align="center">
   <img src="https://raw.githubusercontent.com/workingguy4321/workingguy4321/main/flying-pokemon.svg" width="100%" alt="Flying Power-Boosting Pokemon" />
 </div>
@@ -22,19 +22,12 @@
 
 ### 📊 GitHub Stats
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=workingguy4321&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117" alt="GitHub Stats" width="48%" />
+  <img src="https://github-stats-extended.vercel.app/api?username=workingguy4321&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117" alt="GitHub Stats" width="48%" />
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=workingguy4321&theme=tokyonight&hide_border=true&background=0D1117" alt="GitHub Streak" width="48%" />
 </div>
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=workingguy4321&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117" alt="Top Languages" width="40%" />
-</div>
-
----
-
-### 📈 Activity Graph
-<div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=workingguy4321&theme=tokyo-night&hide_border=true&bg_color=0D1117" alt="Activity Graph" width="100%" />
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=workingguy4321&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117" alt="Top Languages" width="42%" />
 </div>
 
 ---
