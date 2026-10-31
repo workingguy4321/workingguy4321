@@ -1,0 +1,337 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="ghostBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090114" />
+      <stop offset="50%" stop-color="#19062e" />
+      <stop offset="100%" stop-color="#05000a" />
+    </linearGradient>
+
+    <!-- Gengar Purple Body Gradient -->
+    <linearGradient id="gengarSkin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8a3ffc" />
+      <stop offset="40%" stop-color="#6929c4" />
+      <stop offset="85%" stop-color="#3b1078" />
+      <stop offset="100%" stop-color="#23064d" />
+    </linearGradient>
+
+    <!-- Shadow Ball Orb Gradient -->
+    <radialGradient id="shadowBallGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00ffff" />
+      <stop offset="25%" stop-color="#c084fc" />
+      <stop offset="60%" stop-color="#491088" />
+      <stop offset="90%" stop-color="#0f021f" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+
+    <radialGradient id="eyeGlowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff3366" />
+      <stop offset="60%" stop-color="#cc0033" />
+      <stop offset="100%" stop-color="#66001a" />
+    </radialGradient>
+
+    <linearGradient id="hpGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00ff88" />
+      <stop offset="100%" stop-color="#00ffff" />
+    </linearGradient>
+
+    <!-- Neon Glow Filter -->
+    <filter id="ghostAura" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="blur1" />
+      <feGaussianBlur stdDeviation="18" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="eyeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style>
+      .battle-stage {
+        cursor: pointer;
+      }
+
+      /* Floating Ghost Spirits in Background */
+      .spirit-orb {
+        animation: floatSpirit 4s ease-in-out infinite alternate;
+      }
+      .spirit-1 { animation-duration: 3.2s; animation-delay: 0.2s; }
+      .spirit-2 { animation-duration: 4.5s; animation-delay: 1.1s; }
+      .spirit-3 { animation-duration: 3.8s; animation-delay: 0.7s; }
+
+      @keyframes floatSpirit {
+        0% { transform: translateY(0px) scale(0.9); opacity: 0.3; }
+        50% { opacity: 0.8; }
+        100% { transform: translateY(-24px) scale(1.15); opacity: 0.3; }
+      }
+
+      /* Gengar Idle Breathing / Sway Animation */
+      .gengar-group {
+        transform-origin: 570px 200px;
+        animation: gengarFloat 3.5s ease-in-out infinite alternate;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      @keyframes gengarFloat {
+        0% { transform: translateY(-8px) rotate(-1deg); }
+        100% { transform: translateY(8px) rotate(1.5deg); }
+      }
+
+      /* Shadow Ball Swirl */
+      .shadow-ball-core {
+        transform-origin: 390px 220px;
+        animation: spinBall 6s linear infinite;
+        transition: all 0.4s ease;
+      }
+
+      @keyframes spinBall {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      /* Shadow Tendril Orbits */
+      .tendril-ring-1 {
+        transform-origin: 390px 220px;
+        animation: tendrilSpin 4s linear infinite;
+      }
+      .tendril-ring-2 {
+        transform-origin: 390px 220px;
+        animation: tendrilCounter 3s linear infinite;
+      }
+
+      @keyframes tendrilSpin {
+        0% { transform: rotate(0deg) scale(1); stroke-dashoffset: 0; }
+        50% { transform: rotate(180deg) scale(1.15); stroke-dashoffset: 40; }
+        100% { transform: rotate(360deg) scale(1); stroke-dashoffset: 0; }
+      }
+
+      @keyframes tendrilCounter {
+        0% { transform: rotate(360deg) scale(1.1); }
+        100% { transform: rotate(0deg) scale(0.95); }
+      }
+
+      .move-text {
+        opacity: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .default-text {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      /* ========================================================
+         MOUSE HOVER: GENGAR UNLEASHES SHADOW BALL!
+         ======================================================== */
+      .battle-stage:hover .gengar-group {
+        transform: scale(1.1) translateY(-14px);
+        filter: drop-shadow(0 0 35px #a855f7);
+      }
+
+      .battle-stage:hover .gengar-eye {
+        filter: drop-shadow(0 0 12px #ff0044);
+        transform: scale(1.15);
+      }
+
+      .battle-stage:hover .shadow-ball-core {
+        transform: scale(1.4);
+        animation-duration: 1.2s;
+        filter: drop-shadow(0 0 30px #00ffff);
+      }
+
+      .battle-stage:hover .tendril-ring-1 {
+        stroke: #ff007f;
+        animation-duration: 1.2s;
+      }
+
+      .battle-stage:hover .tendril-ring-2 {
+        stroke: #00ffff;
+        animation-duration: 0.9s;
+      }
+
+      .battle-stage:hover .move-text {
+        opacity: 1;
+        transform: translateY(-4px);
+      }
+
+      .battle-stage:hover .default-text {
+        opacity: 0;
+      }
+
+      .retro-font {
+        font-family: 'Press Start 2P', 'Courier New', monospace;
+      }
+    </style>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="100%" height="100%" fill="url(#ghostBg)" rx="18" stroke="#4a157c" stroke-width="2.5"/>
+
+  <!-- Haunted Grid Lines -->
+  <g opacity="0.08" stroke="#a855f7" stroke-width="1.5">
+    <line x1="0" y1="60" x2="840" y2="60"/>
+    <line x1="0" y1="120" x2="840" y2="120"/>
+    <line x1="0" y1="180" x2="840" y2="180"/>
+    <line x1="0" y1="240" x2="840" y2="240"/>
+    <line x1="0" y1="300" x2="840" y2="300"/>
+    <line x1="140" y1="0" x2="140" y2="380"/>
+    <line x1="280" y1="0" x2="280" y2="380"/>
+    <line x1="420" y1="0" x2="420" y2="380"/>
+    <line x1="560" y1="0" x2="560" y2="380"/>
+    <line x1="700" y1="0" x2="700" y2="380"/>
+  </g>
+
+  <!-- Ghost Spirit Orbs in Background -->
+  <g class="spirit-orb spirit-1">
+    <circle cx="210" cy="270" r="28" fill="#a855f7" opacity="0.25" filter="url(#ghostAura)"/>
+    <circle cx="210" cy="270" r="12" fill="#d8b4fe" opacity="0.5"/>
+  </g>
+  <g class="spirit-orb spirit-2">
+    <circle cx="730" cy="90" r="34" fill="#6929c4" opacity="0.25" filter="url(#ghostAura)"/>
+    <circle cx="730" cy="90" r="14" fill="#a855f7" opacity="0.5"/>
+  </g>
+  <g class="spirit-orb spirit-3">
+    <circle cx="340" cy="90" r="22" fill="#c084fc" opacity="0.2" filter="url(#ghostAura)"/>
+  </g>
+
+  <!-- Interactive Battle Container -->
+  <g class="battle-stage">
+
+    <!-- ==================== LEFT: POKÉMON BATTLE HUD ==================== -->
+    <g transform="translate(45, 55)">
+      <!-- HUD Card Container -->
+      <rect x="0" y="0" width="280" height="135" rx="12" fill="#130722" stroke="#6929c4" stroke-width="2" opacity="0.95"/>
+      <rect x="4" y="4" width="272" height="26" rx="8" fill="#240b40"/>
+
+      <!-- Pokémon Name & Level -->
+      <text class="retro-font" x="15" y="22" font-size="11" fill="#ffe600" font-weight="bold">GENGAR</text>
+      <text class="retro-font" x="220" y="22" font-size="10" fill="#a855f7">:L100</text>
+
+      <!-- Type Badges -->
+      <g transform="translate(15, 38)">
+        <rect x="0" y="0" width="62" height="16" rx="4" fill="#703898"/>
+        <text class="retro-font" x="31" y="11" font-size="8" fill="#ffffff" text-anchor="middle">GHOST</text>
+
+        <rect x="70" y="0" width="68" height="16" rx="4" fill="#a040a0"/>
+        <text class="retro-font" x="104" y="11" font-size="8" fill="#ffffff" text-anchor="middle">POISON</text>
+      </g>
+
+      <!-- HP Bar Box -->
+      <text class="retro-font" x="15" y="78" font-size="9" fill="#00ff88">HP</text>
+      <rect x="42" y="68" width="220" height="14" rx="4" fill="#07020d" stroke="#3b1078" stroke-width="1.5"/>
+      <rect x="44" y="70" width="216" height="10" rx="3" fill="url(#hpGrad)"/>
+
+      <text class="retro-font" x="260" y="100" font-size="9" fill="#e2e8f0" text-anchor="end">350 / 350</text>
+      <text class="retro-font" x="15" y="120" font-size="8" fill="#94a3b8">TRAINER: WORKINGGUY4321</text>
+    </g>
+
+    <!-- Battle Dialogue Box (Bottom Left) -->
+    <g transform="translate(45, 215)">
+      <rect x="0" y="0" width="310" height="105" rx="10" fill="#0f041b" stroke="#8a3ffc" stroke-width="2"/>
+      
+      <!-- Default state text -->
+      <g class="default-text">
+        <text class="retro-font" x="16" y="32" font-size="9" fill="#ffffff">A wild GENGAR appeared!</text>
+        <text class="retro-font" x="16" y="56" font-size="8" fill="#00ffff">Ability: CURSED BODY</text>
+        <text class="retro-font" x="16" y="80" font-size="8" fill="#ffe600">Specialty: WINDOWS UTILITIES</text>
+      </g>
+
+      <!-- Hover state text -->
+      <g class="move-text">
+        <text class="retro-font" x="16" y="32" font-size="9" fill="#ff007f">GENGAR used SHADOW BALL!</text>
+        <text class="retro-font" x="16" y="56" font-size="8" fill="#00ff88">Critical Hit! It's super effective!</text>
+        <text class="retro-font" x="16" y="80" font-size="8" fill="#ffe600">Enemy Defense neutralized!</text>
+      </g>
+    </g>
+
+    <!-- ==================== CENTER: SHADOW BALL ATTACK ==================== -->
+    <g id="shadow-ball-group">
+      <!-- Outer Dark Aura Vortex -->
+      <ellipse class="tendril-ring-1" cx="390" cy="220" rx="48" ry="48" fill="none" stroke="#a855f7" stroke-width="3" stroke-dasharray="25 15" filter="url(#ghostAura)"/>
+      <ellipse class="tendril-ring-2" cx="390" cy="220" rx="60" ry="32" fill="none" stroke="#7928ca" stroke-width="2" stroke-dasharray="15 20" opacity="0.8"/>
+
+      <!-- Rotating Core Shadow Ball -->
+      <g class="shadow-ball-core">
+        <circle cx="390" cy="220" r="32" fill="url(#shadowBallGrad)" filter="url(#ghostAura)"/>
+        <!-- Inner Spectral Eye Swirl -->
+        <circle cx="390" cy="220" r="16" fill="#090114" opacity="0.9"/>
+        <circle cx="384" cy="216" r="6" fill="#00ffff"/>
+        <!-- Lightning Sparks -->
+        <path d="M 370 210 L 382 225 L 396 215 L 410 230" stroke="#00ffff" stroke-width="2" fill="none" opacity="0.85"/>
+      </g>
+    </g>
+
+    <!-- ==================== RIGHT: GENGAR SPRITE & ARTWORK ==================== -->
+    <g class="gengar-group">
+      <!-- Shadow on the ground -->
+      <ellipse cx="570" cy="325" rx="100" ry="22" fill="#05010a" opacity="0.85" filter="url(#ghostAura)"/>
+
+      <!-- Left Ear Horn -->
+      <polygon points="480,120 460,50 515,95" fill="url(#gengarSkin)" stroke="#23064d" stroke-width="3"/>
+      <!-- Right Ear Horn -->
+      <polygon points="650,115 675,45 615,92" fill="url(#gengarSkin)" stroke="#23064d" stroke-width="3"/>
+
+      <!-- Spiky Back Spines (Top Crest) -->
+      <polygon points="520,90 535,45 555,85" fill="#581c87"/>
+      <polygon points="555,85 575,40 595,85" fill="#581c87"/>
+      <polygon points="595,85 615,45 630,90" fill="#581c87"/>
+
+      <!-- Main Body (Chubby Round Shadow Silhouette) -->
+      <path d="M 465 180 C 455 120, 500 85, 570 85 C 640 85, 680 120, 670 180 C 675 240, 645 305, 570 305 C 495 305, 460 240, 465 180 Z" 
+            fill="url(#gengarSkin)" stroke="#1a0438" stroke-width="4" filter="url(#ghostAura)"/>
+
+      <!-- Left Stubby Arm (Reaching Forward toward Shadow Ball) -->
+      <path d="M 470 185 C 440 190, 415 210, 430 230 C 445 245, 475 220, 475 200 Z" 
+            fill="url(#gengarSkin)" stroke="#1a0438" stroke-width="3"/>
+      <!-- Claws -->
+      <polygon points="420,225 412,228 425,235" fill="#ffffff"/>
+      <polygon points="428,235 422,242 434,242" fill="#ffffff"/>
+
+      <!-- Right Stubby Arm -->
+      <path d="M 665 185 C 695 190, 715 215, 700 232 C 685 245, 660 220, 660 200 Z" 
+            fill="url(#gengarSkin)" stroke="#1a0438" stroke-width="3"/>
+      <polygon points="708,228 718,225 710,236" fill="#ffffff"/>
+
+      <!-- Stubby Legs / Feet -->
+      <path d="M 505 295 C 495 315, 510 328, 535 325 C 545 315, 535 295, 520 295 Z" fill="#3b1078"/>
+      <path d="M 625 295 C 640 315, 625 328, 600 325 C 590 315, 605 295, 615 295 Z" fill="#3b1078"/>
+
+      <!-- Glowing Red Menacing Eyes -->
+      <!-- Left Eye -->
+      <g class="gengar-eye" style="transform-origin: 518px 145px; transition: all 0.3s ease;">
+        <path d="M 495 152 Q 520 130 542 148 Q 520 162 495 152 Z" fill="url(#eyeGlowGrad)" stroke="#1a0438" stroke-width="2" filter="url(#eyeGlow)"/>
+        <!-- Pupil -->
+        <circle cx="522" cy="148" r="4.5" fill="#ffffff"/>
+      </g>
+
+      <!-- Right Eye -->
+      <g class="gengar-eye" style="transform-origin: 618px 145px; transition: all 0.3s ease;">
+        <path d="M 598 148 Q 620 130 645 152 Q 620 162 598 148 Z" fill="url(#eyeGlowGrad)" stroke="#1a0438" stroke-width="2" filter="url(#eyeGlow)"/>
+        <!-- Pupil -->
+        <circle cx="618" cy="148" r="4.5" fill="#ffffff"/>
+      </g>
+
+      <!-- Big Evil Grin Mouth with Sharp White Teeth -->
+      <path d="M 488 195 Q 570 270 650 195 Q 570 215 488 195 Z" fill="#120124" stroke="#1a0438" stroke-width="3.5"/>
+      
+      <!-- Teeth Rows -->
+      <path d="M 500 199 L 507 210 L 518 199 L 528 214 L 540 200 L 552 218 L 568 200 L 582 220 L 596 201 L 608 216 L 620 200 L 630 212 L 640 198" 
+            stroke="#ffffff" stroke-width="3" fill="none" stroke-linejoin="round"/>
+      <path d="M 515 220 L 525 214 L 536 226 L 548 215 L 562 232 L 576 216 L 592 230 L 604 216 L 616 224 L 624 215" 
+            stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Top & Bottom Hints -->
+    <text class="retro-font" x="420" y="30" font-size="11" fill="#c084fc" text-anchor="middle" letter-spacing="2">★ GENGAR GHOST GYM // POKÉMON LEADER WORKINGGUY4321 ★</text>
+    <text class="retro-font" x="420" y="362" font-size="10" fill="#a855f7" text-anchor="middle">👻 HOVER OVER GENGAR TO LAUNCH SHADOW BALL! ⚡</text>
+
+  </g>
+</svg>
