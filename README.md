@@ -11,12 +11,7 @@
   <img src="https://komarev.com/ghpvc/?username=workingguy4321&color=00D1FF&style=flat-square&label=PROFILE+VIEWS" alt="Profile Views" />
 </div>
 
-<br>
 
-<!-- Flying & Power Boosting Gengar Pokemon -->
-<div align="center">
-  <img src="https://raw.githubusercontent.com/workingguy4321/workingguy4321/main/flying-pokemon.svg" width="100%" alt="Flying Power-Boosting Pokemon" />
-</div>
 
 ---
 
