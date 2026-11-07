@@ -3,141 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>✨ DIWALI CRACKERS SIMULATOR 🪔 // Happy Deepavali!</title>
+  <title>💥 BIJILI CRACKER SIMULATOR // Real Diwali Lighting Experience</title>
   <style>
     * {
       box-sizing: border-box;
-      user-select: none;
       margin: 0;
       padding: 0;
+      user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
     body {
-      background: #03040c;
+      background: #08050e;
       color: #ffd700;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden;
       width: 100vw;
       height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #game-container {
       position: relative;
+      width: 100%;
+      height: 100%;
+      cursor: none; /* Agarbatti replaces cursor */
     }
     canvas {
       display: block;
       width: 100%;
       height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
     }
-    /* Festive Header */
-    #top-hud {
+    /* Top Title HUD */
+    #hud {
       position: absolute;
       top: 15px;
       left: 0;
       width: 100%;
       text-align: center;
-      z-index: 10;
       pointer-events: none;
+      z-index: 10;
     }
     h1 {
-      font-size: clamp(24px, 4vw, 42px);
+      font-size: clamp(22px, 3.5vw, 36px);
       font-weight: 900;
-      letter-spacing: 3px;
-      background: linear-gradient(135deg, #ffe066, #ff8c00, #ff0055, #ffd700);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 25px rgba(255, 140, 0, 0.7);
-      animation: pulseTitle 2s ease-in-out infinite alternate;
+      letter-spacing: 2px;
+      color: #ff3333;
+      text-shadow: 0 0 15px rgba(255, 51, 51, 0.8), 0 0 30px rgba(255, 204, 0, 0.6);
     }
-    @keyframes pulseTitle {
-      0% { transform: scale(0.98); filter: drop-shadow(0 0 10px #ff9900); }
-      100% { transform: scale(1.02); filter: drop-shadow(0 0 25px #ff0055); }
-    }
-    .sub-text {
-      font-size: clamp(12px, 1.8vw, 15px);
-      color: #fbd38d;
-      margin-top: 4px;
-      letter-spacing: 1px;
-      text-shadow: 0 0 8px rgba(0,0,0,0.8);
-    }
-    /* Controls Top Right */
-    #top-controls {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      z-index: 20;
-      display: flex;
-      gap: 10px;
-    }
-    .hud-btn {
-      background: rgba(18, 10, 35, 0.85);
-      border: 1.5px solid #ff9900;
-      color: #ffd700;
-      padding: 8px 16px;
+    .instruction {
+      font-size: clamp(13px, 1.8vw, 16px);
+      color: #ffe066;
+      margin-top: 5px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.4);
+      display: inline-block;
+      padding: 4px 16px;
       border-radius: 20px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 700;
-      box-shadow: 0 0 15px rgba(255, 153, 0, 0.3);
-      transition: all 0.2s ease;
-      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 204, 0, 0.3);
     }
-    .hud-btn:hover, .hud-btn.active {
-      background: linear-gradient(135deg, #ff9900, #ff0055);
-      color: #ffffff;
-      box-shadow: 0 0 25px rgba(255, 0, 85, 0.8);
-      transform: scale(1.05);
-    }
-    /* Cracker Selector Bottom Dock */
-    #cracker-dock {
+    /* Bottom Controls */
+    #bottom-bar {
       position: absolute;
-      bottom: 20px;
+      bottom: 25px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 20;
-      background: rgba(10, 5, 25, 0.88);
-      border: 2px solid #ff9900;
-      border-radius: 50px;
-      padding: 8px 16px;
       display: flex;
-      gap: 12px;
-      box-shadow: 0 0 30px rgba(255, 153, 0, 0.4), inset 0 0 15px rgba(255, 0, 85, 0.2);
-      backdrop-filter: blur(10px);
-      max-width: 95vw;
-      overflow-x: auto;
+      gap: 15px;
+      z-index: 20;
     }
-    .cracker-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 153, 0, 0.3);
+    .action-btn {
+      background: linear-gradient(135deg, #ff2222, #b30000);
+      border: 2px solid #ffd700;
       color: #ffffff;
-      padding: 8px 14px;
+      padding: 10px 24px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 1px;
       border-radius: 30px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap;
+      box-shadow: 0 0 20px rgba(255, 34, 34, 0.5);
       transition: all 0.2s ease;
     }
-    .cracker-btn span {
-      font-size: 18px;
+    .action-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
     }
-    .cracker-btn:hover {
-      background: rgba(255, 153, 0, 0.2);
-      border-color: #ffd700;
-      transform: translateY(-2px);
-    }
-    .cracker-btn.active {
-      background: linear-gradient(135deg, #ff8c00, #ff0055);
-      border-color: #ffe066;
-      box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
-      color: #ffffff;
-      transform: translateY(-3px) scale(1.05);
-    }
-    /* Screen Flash */
     #flash {
       position: absolute;
       top: 0;
@@ -147,24 +99,8 @@
       background: #ffffff;
       opacity: 0;
       pointer-events: none;
-      z-index: 5;
-      transition: opacity 0.1s ease-out;
-    }
-    /* Instructions floating hint */
-    #hint-tag {
-      position: absolute;
-      bottom: 85px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      color: #fbd38d;
-      font-size: 13px;
-      text-shadow: 0 0 10px rgba(0,0,0,0.9);
-      pointer-events: none;
-      background: rgba(0,0,0,0.5);
-      padding: 4px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 153, 0, 0.2);
+      z-index: 15;
+      transition: opacity 0.08s ease-out;
     }
   </style>
 </head>
@@ -172,36 +108,25 @@
 
   <div id="flash"></div>
 
-  <div id="top-hud">
-    <h1>🪔 HAPPY DIWALI 🪔</h1>
-    <div class="sub-text">✨ Touch or click anywhere to light up the night sky! ✨</div>
+  <div id="game-container">
+    <div id="hud">
+      <h1>🧨 DIWALI BIJILI CRACKER SIMULATOR 🧨</h1>
+      <div class="instruction">🔥 Bring the burning Agarbatti to the fuse to light it! 🔥</div>
+    </div>
+
+    <canvas id="stageCanvas"></canvas>
+
+    <div id="bottom-bar">
+      <button class="action-btn" id="new-cracker-btn">🧨 Place New Bijili</button>
+      <button class="action-btn" id="sound-btn" style="background: #222; border-color: #ff9900;">🔊 Sound: ON</button>
+    </div>
   </div>
-
-  <div id="top-controls">
-    <button class="hud-btn" id="auto-btn">🎆 Auto Fireworks: OFF</button>
-    <button class="hud-btn" id="sound-btn">🔊 Sound: ON</button>
-  </div>
-
-  <div id="hint-tag">Tap anywhere to launch!</div>
-
-  <!-- Bottom Cracker Dock -->
-  <div id="cracker-dock">
-    <button class="cracker-btn active" data-type="rocket"><span>🚀</span> Sky Rocket</button>
-    <button class="cracker-btn" data-type="flowerpot"><span>🌺</span> Anar (Flowerpot)</button>
-    <button class="cracker-btn" data-type="chakra"><span>🌀</span> Ground Chakra</button>
-    <button class="cracker-btn" data-type="bomb"><span>💣</span> Atom Bomb</button>
-    <button class="cracker-btn" data-type="sparkler"><span>✨</span> Sparkler</button>
-  </div>
-
-  <canvas id="fireworksCanvas"></canvas>
 
   <script>
-    const canvas = document.getElementById('fireworksCanvas');
+    const canvas = document.getElementById('stageCanvas');
     const ctx = canvas.getContext('2d');
     const flashEl = document.getElementById('flash');
-    const hintEl = document.getElementById('hint-tag');
 
-    // Resize Canvas
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -209,7 +134,7 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Web Audio Synthesizer for Realistic Cracker Sounds
+    // Web Audio Synthesizer (Realistic Sizzle + Loud Bijili Blast)
     let audioCtx = null;
     let soundEnabled = true;
 
@@ -222,586 +147,552 @@
       }
     }
 
-    function playSound(type) {
+    function playSizzle() {
+      if (!soundEnabled || !audioCtx) return;
+      const now = audioCtx.currentTime;
+      // High-pitched hissing spark sound
+      const bufferSize = audioCtx.sampleRate * 0.15;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+      }
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'highpass';
+      filter.frequency.setValueAtTime(3500, now);
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.18, now);
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+      noise.start(now);
+    }
+
+    function playBigiliBlast() {
       if (!soundEnabled || !audioCtx) return;
       const now = audioCtx.currentTime;
 
-      if (type === 'whistle') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(450, now);
-        osc.frequency.exponentialRampToValueAtTime(1600, now + 0.6);
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-        osc.start(now);
-        osc.stop(now + 0.6);
+      // 1. Sharp high-frequency transient SNAP / CRACK
+      const snapBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.08, audioCtx.sampleRate);
+      const snapData = snapBuf.getChannelData(0);
+      for (let i = 0; i < snapBuf.length; i++) {
+        snapData[i] = Math.random() * 2 - 1;
       }
-      else if (type === 'boom') {
-        // Low sub-bass thud
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(140, now);
-        osc.frequency.exponentialRampToValueAtTime(30, now + 0.5);
-        gain.gain.setValueAtTime(0.7, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-        osc.start(now);
-        osc.stop(now + 0.5);
+      const snapSource = audioCtx.createBufferSource();
+      snapSource.buffer = snapBuf;
+      const snapFilter = audioCtx.createBiquadFilter();
+      snapFilter.type = 'bandpass';
+      snapFilter.frequency.setValueAtTime(2400, now);
+      const snapGain = audioCtx.createGain();
+      snapGain.gain.setValueAtTime(1.0, now);
+      snapGain.gain.exponentialRampToValueAtTime(0.01, now + 0.07);
+      snapSource.connect(snapFilter);
+      snapFilter.connect(snapGain);
+      snapGain.connect(audioCtx.destination);
+      snapSource.start(now);
 
-        // Crackling explosion noise burst
-        const bufferSize = audioCtx.sampleRate * 0.4;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = Math.random() * 2 - 1;
-        }
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(1000, now);
-        filter.frequency.exponentialRampToValueAtTime(100, now + 0.4);
-        const noiseGain = audioCtx.createGain();
-        noiseGain.gain.setValueAtTime(0.5, now);
-        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-        noise.connect(filter);
-        filter.connect(noiseGain);
-        noiseGain.connect(audioCtx.destination);
-        noise.start(now);
+      // 2. Heavy sub-bass BOOM shockwave
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(190, now);
+      osc.frequency.exponentialRampToValueAtTime(32, now + 0.45);
+      gain.gain.setValueAtTime(0.9, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      osc.start(now);
+      osc.stop(now + 0.45);
+
+      // 3. Post-explosion reverberating smoke echo
+      const echoBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.5, audioCtx.sampleRate);
+      const echoData = echoBuf.getChannelData(0);
+      for (let i = 0; i < echoBuf.length; i++) {
+        echoData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.12));
       }
-      else if (type === 'hiss') {
-        const bufferSize = audioCtx.sampleRate * 0.3;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = Math.random() * 2 - 1;
-        }
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(3000, now);
-        const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-        noise.start(now);
-      }
-      else if (type === 'crackle') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(Math.random() * 800 + 400, now);
-        gain.gain.setValueAtTime(0.1, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
-        osc.start(now);
-        osc.stop(now + 0.05);
-      }
+      const echoSource = audioCtx.createBufferSource();
+      echoSource.buffer = echoBuf;
+      const echoFilter = audioCtx.createBiquadFilter();
+      echoFilter.type = 'lowpass';
+      echoFilter.frequency.setValueAtTime(800, now);
+      const echoGain = audioCtx.createGain();
+      echoGain.gain.setValueAtTime(0.5, now);
+      echoGain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      echoSource.connect(echoFilter);
+      echoFilter.connect(echoGain);
+      echoGain.connect(audioCtx.destination);
+      echoSource.start(now);
     }
 
-    // Flash screen effect
-    function screenFlash(opacity = 0.35) {
-      flashEl.style.opacity = opacity;
-      setTimeout(() => { flashEl.style.opacity = '0'; }, 80);
+    // Mouse / Cursor Tracking (Agarbatti position)
+    const mouse = { x: -100, y: -100 };
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener('touchmove', (e) => {
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener('touchstart', (e) => {
+      initAudio();
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+    }, { passive: true });
+
+    // Bijili Cracker State
+    const cracker = {
+      x: 0,
+      y: 0,
+      width: 32,
+      height: 130,
+      state: 'ready', // 'ready', 'burning', 'exploded'
+      fuseLength: 50,
+      maxFuse: 50,
+      burnRate: 0.35,
+      scorchMarks: []
+    };
+
+    function resetCracker() {
+      cracker.x = canvas.width / 2;
+      cracker.y = canvas.height * 0.62;
+      cracker.state = 'ready';
+      cracker.fuseLength = cracker.maxFuse;
+      sparks = [];
+      paperShreds = [];
+      smoke = [];
     }
+    resetCracker();
+    window.addEventListener('resize', resetCracker);
 
-    // Palette Colors
-    const colors = [
-      '#ff0055', '#ff5500', '#ffd700', '#00ff66', '#00e5ff', 
-      '#bf00ff', '#ff00aa', '#ffffff', '#70e000', '#ffbe0b'
-    ];
-    function randomColor() {
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
+    // Particle Arrays
+    let sparks = [];
+    let paperShreds = [];
+    let smoke = [];
 
-    // Entities Arrays
-    let rockets = [];
-    let particles = [];
-    let groundCrackers = [];
-    let diyas = [];
+    // Screen shake variable
+    let screenShake = 0;
 
-    // Background Stars
-    const stars = [];
-    for (let i = 0; i < 90; i++) {
-      stars.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * (window.innerHeight * 0.7),
-        size: Math.random() * 1.8 + 0.5,
-        alpha: Math.random() * 0.7 + 0.3,
-        flicker: Math.random() * 0.02 + 0.01
+    // Explode Function
+    function explodeCracker() {
+      cracker.state = 'exploded';
+      screenShake = 24; // strong shake
+      playBigiliBlast();
+
+      // Screen Flash
+      flashEl.style.opacity = '0.9';
+      setTimeout(() => { flashEl.style.opacity = '0'; }, 90);
+
+      // Save Scorch Mark on ground
+      cracker.scorchMarks.push({
+        x: cracker.x,
+        y: cracker.y + 20,
+        radius: 65 + Math.random() * 20
       });
-    }
 
-    // Initialize Peaceful Diyas on Ground
-    function initDiyas() {
-      diyas = [];
-      const count = Math.max(5, Math.floor(window.innerWidth / 140));
-      const step = window.innerWidth / count;
-      for (let i = 0; i < count; i++) {
-        diyas.push({
-          x: step * i + step * 0.5,
-          y: canvas.height - 35,
-          flicker: Math.random() * Math.PI
+      // 1. Red & Gold Paper Shreds flying out
+      for (let i = 0; i < 90; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 14 + 3;
+        paperShreds.push({
+          x: cracker.x,
+          y: cracker.y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - Math.random() * 5,
+          color: Math.random() > 0.3 ? '#e60000' : '#ffd700',
+          size: Math.random() * 10 + 4,
+          rotation: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.4,
+          life: 1,
+          decay: Math.random() * 0.01 + 0.005
+        });
+      }
+
+      // 2. Fiery Sparks
+      for (let i = 0; i < 110; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 18 + 4;
+        sparks.push({
+          x: cracker.x,
+          y: cracker.y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - Math.random() * 4,
+          color: Math.random() > 0.4 ? '#ffcc00' : '#ffffff',
+          size: Math.random() * 3.5 + 1.5,
+          life: 1,
+          decay: Math.random() * 0.03 + 0.02
+        });
+      }
+
+      // 3. Thick Smoke Cloud
+      for (let i = 0; i < 40; i++) {
+        smoke.push({
+          x: cracker.x + (Math.random() * 40 - 20),
+          y: cracker.y + (Math.random() * 20 - 10),
+          vx: (Math.random() - 0.5) * 2.5,
+          vy: -Math.random() * 2.5 - 0.8,
+          radius: Math.random() * 25 + 15,
+          alpha: 0.75,
+          growth: Math.random() * 0.8 + 0.5,
+          decay: Math.random() * 0.008 + 0.004
         });
       }
     }
-    initDiyas();
-    window.addEventListener('resize', initDiyas);
 
-    // Particle Class
-    class Particle {
-      constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.05, friction = 0.98, spark = false) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.vx = vx;
-        this.vy = vy;
-        this.alpha = 1;
-        this.decay = Math.random() * 0.02 + 0.012;
-        this.size = size;
-        this.gravity = gravity;
-        this.friction = friction;
-        this.spark = spark;
+    // Main Draw & Update Loop
+    function loop() {
+      // Screen Shake Transform
+      let shakeX = 0;
+      let shakeY = 0;
+      if (screenShake > 0) {
+        shakeX = (Math.random() - 0.5) * screenShake;
+        shakeY = (Math.random() - 0.5) * screenShake;
+        screenShake *= 0.88;
+        if (screenShake < 0.5) screenShake = 0;
       }
-      update() {
-        this.vx *= this.friction;
-        this.vy *= this.friction;
-        this.vy += this.gravity;
-        this.x += this.vx;
-        this.y += this.vy;
-        this.alpha -= this.decay;
-        this.size = Math.max(0.2, this.size * 0.98);
-        return this.alpha > 0;
-      }
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, this.alpha);
-        ctx.fillStyle = this.color;
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = this.spark ? 15 : 6;
+
+      ctx.save();
+      ctx.translate(shakeX, shakeY);
+
+      // Clear Stage (Night ground pavement)
+      ctx.fillStyle = '#0a0614';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Pavement Ground Perspective Line
+      const horizonY = canvas.height * 0.48;
+      const groundGrad = ctx.createLinearGradient(0, horizonY, 0, canvas.height);
+      groundGrad.addColorStop(0, '#150f24');
+      groundGrad.addColorStop(1, '#090510');
+      ctx.fillStyle = groundGrad;
+      ctx.fillRect(0, horizonY, canvas.width, canvas.height - horizonY);
+
+      // Ground Texture lines
+      ctx.strokeStyle = '#1e1435';
+      ctx.lineWidth = 1.5;
+      for (let x = -200; x < canvas.width + 400; x += 120) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    // Rocket Class
-    class Rocket {
-      constructor(targetX, targetY) {
-        this.x = targetX + (Math.random() * 60 - 30);
-        this.y = canvas.height;
-        this.targetX = targetX;
-        this.targetY = targetY;
-        const dx = targetX - this.x;
-        const dy = targetY - this.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const speed = Math.random() * 3 + 12;
-        this.vx = (dx / dist) * speed;
-        this.vy = (dy / dist) * speed;
-        this.color = randomColor();
-        playSound('whistle');
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        // Trail sparks
-        for (let i = 0; i < 2; i++) {
-          particles.push(new Particle(
-            this.x, this.y, '#ffaa00',
-            (Math.random() - 0.5) * 1.5, Math.random() * 2 + 1,
-            0.6, 2, 0.02, 0.95
-          ));
-        }
-        // Burst when near target
-        if (this.vy >= 0 || this.y <= this.targetY) {
-          this.explode();
-          return false;
-        }
-        return true;
-      }
-      explode() {
-        playSound('boom');
-        screenFlash(0.25);
-        const count = Math.floor(Math.random() * 40 + 70);
-        const pattern = Math.random();
-
-        for (let i = 0; i < count; i++) {
-          let angle, speed;
-          if (pattern > 0.3) {
-            // Standard Spherical Burst
-            angle = Math.random() * Math.PI * 2;
-            speed = Math.random() * 7 + 1.5;
-          } else {
-            // Ring Burst
-            angle = (i / count) * Math.PI * 2;
-            speed = 5.5 + Math.random() * 1.5;
-          }
-          particles.push(new Particle(
-            this.x, this.y, this.color,
-            Math.cos(angle) * speed, Math.sin(angle) * speed,
-            1, Math.random() * 3 + 2, 0.06, 0.96, true
-          ));
-        }
-      }
-      draw() {
-        ctx.save();
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    // Flowerpot (Anar) Class
-    class Flowerpot {
-      constructor(x) {
-        this.x = x;
-        this.y = canvas.height - 25;
-        this.duration = 180; // frames ~ 3 seconds
-        this.timer = 0;
-        playSound('hiss');
-      }
-      update() {
-        this.timer++;
-        const intensity = Math.sin((this.timer / this.duration) * Math.PI);
-        const count = Math.floor(intensity * 14 + 3);
-
-        for (let i = 0; i < count; i++) {
-          const speed = Math.random() * 11 + 6;
-          const spread = (Math.random() - 0.5) * 0.6;
-          const color = Math.random() > 0.3 ? '#ffd700' : '#ffffff';
-          particles.push(new Particle(
-            this.x + (Math.random() * 8 - 4), this.y - 10, color,
-            Math.sin(spread) * speed, -Math.cos(spread) * speed,
-            0.9, Math.random() * 3 + 1.5, 0.16, 0.97, true
-          ));
-        }
-        if (Math.random() < 0.2) playSound('crackle');
-        return this.timer < this.duration;
-      }
-      draw() {
-        // Draw the Anar cone
-        ctx.save();
-        ctx.fillStyle = '#e63946';
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y - 12);
-        ctx.lineTo(this.x - 14, this.y);
-        ctx.lineTo(this.x + 14, this.y);
-        ctx.closePath();
-        ctx.fill();
-        // Glowing base
-        ctx.fillStyle = '#ffd700';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y - 12, 4 + Math.random() * 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    // Ground Spinner (Chakra) Class
-    class Chakra {
-      constructor(x) {
-        this.x = x;
-        this.y = canvas.height - 25;
-        this.angle = 0;
-        this.duration = 200;
-        this.timer = 0;
-        playSound('hiss');
-      }
-      update() {
-        this.timer++;
-        this.angle += 0.35;
-        const color = colors[Math.floor(this.timer / 20) % colors.length];
-
-        // Shoot sparks in 2 spiral jets
-        for (let i = 0; i < 4; i++) {
-          const dir = this.angle + (i * Math.PI / 2);
-          const speed = Math.random() * 6 + 4;
-          particles.push(new Particle(
-            this.x, this.y, color,
-            Math.cos(dir) * speed, Math.sin(dir) * speed * 0.4 - 0.5,
-            0.8, Math.random() * 2.5 + 1.5, 0.08, 0.96, true
-          ));
-        }
-        if (Math.random() < 0.15) playSound('crackle');
-        return this.timer < this.duration;
-      }
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-        ctx.fillStyle = '#ff0055';
-        ctx.shadowColor = '#00ffff';
-        ctx.shadowBlur = 12;
-        ctx.beginPath();
-        ctx.arc(0, 0, 10, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#ffd700';
-        ctx.fillRect(-14, -3, 28, 6);
-        ctx.restore();
-      }
-    }
-
-    // Atom Bomb Class
-    class AtomBomb {
-      constructor(x) {
-        this.x = x;
-        this.y = canvas.height - 20;
-        this.fuse = 70; // frames countdown
-        playSound('hiss');
-      }
-      update() {
-        this.fuse--;
-        // Fuse spark
-        particles.push(new Particle(
-          this.x, this.y - 14, '#ff9900',
-          (Math.random() - 0.5) * 1.5, -Math.random() * 2,
-          0.4, 2, 0.05, 0.95
-        ));
-
-        if (this.fuse <= 0) {
-          // GIGANTIC BOOM
-          playSound('boom');
-          screenFlash(0.65);
-          for (let i = 0; i < 110; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 12 + 2;
-            particles.push(new Particle(
-              this.x, this.y, randomColor(),
-              Math.cos(angle) * speed, Math.sin(angle) * speed - 2,
-              1.2, Math.random() * 4 + 2, 0.1, 0.95, true
-            ));
-          }
-          return false;
-        }
-        return true;
-      }
-      draw() {
-        ctx.save();
-        // Green Atom Bomb block
-        ctx.fillStyle = '#00b4d8';
-        ctx.fillRect(this.x - 12, this.y - 12, 24, 16);
-        ctx.fillStyle = '#ff0055';
-        ctx.fillRect(this.x - 8, this.y - 10, 16, 4);
-        // Fuse wire
-        ctx.strokeStyle = '#ffd700';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y - 12);
-        ctx.quadraticCurveTo(this.x + 6, this.y - 18, this.x, this.y - 20);
+        ctx.moveTo(x, horizonY);
+        ctx.lineTo(x + (x - canvas.width / 2) * 1.5, canvas.height);
         ctx.stroke();
+      }
+
+      // Draw Scorch Marks
+      for (let sm of cracker.scorchMarks) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+        ctx.beginPath();
+        ctx.ellipse(sm.x, sm.y, sm.radius, sm.radius * 0.35, 0, 0, Math.PI * 2);
+        ctx.fill();
         ctx.restore();
       }
+
+      // Calculate Fuse Coordinates
+      const crackerTopX = cracker.x;
+      const crackerTopY = cracker.y - cracker.height / 2;
+      const currentFuseHeight = (cracker.fuseLength / cracker.maxFuse) * 55;
+      const fuseTipX = crackerTopX + Math.sin(currentFuseHeight * 0.1) * 12;
+      const fuseTipY = crackerTopY - currentFuseHeight;
+
+      // ==========================================
+      // CHECK AGARBATTI / MATCH LIGHTING CONTACT
+      // ==========================================
+      if (cracker.state === 'ready') {
+        const distToFuseTip = Math.hypot(mouse.x - fuseTipX, mouse.y - fuseTipY);
+        if (distToFuseTip < 28) {
+          initAudio();
+          cracker.state = 'burning';
+        }
+      }
+
+      // ==========================================
+      // FUSE BURNING LOGIC
+      // ==========================================
+      if (cracker.state === 'burning') {
+        cracker.fuseLength -= cracker.burnRate;
+
+        // Fuse sputtering sparks
+        for (let i = 0; i < 3; i++) {
+          sparks.push({
+            x: fuseTipX,
+            y: fuseTipY,
+            vx: (Math.random() - 0.5) * 5,
+            vy: -Math.random() * 4 - 1,
+            color: Math.random() > 0.3 ? '#ffaa00' : '#ffffff',
+            size: Math.random() * 3 + 1,
+            life: 1,
+            decay: Math.random() * 0.08 + 0.04
+          });
+        }
+
+        // Small wisp of smoke from burning fuse
+        if (Math.random() < 0.6) {
+          smoke.push({
+            x: fuseTipX,
+            y: fuseTipY,
+            vx: (Math.random() - 0.5) * 1.2,
+            vy: -Math.random() * 2 - 0.5,
+            radius: Math.random() * 8 + 4,
+            alpha: 0.6,
+            growth: 0.3,
+            decay: 0.02
+          });
+        }
+
+        // Sizzle audio
+        if (Math.random() < 0.3) playSizzle();
+
+        // When fuse burns down completely -> BOOM!
+        if (cracker.fuseLength <= 0) {
+          explodeCracker();
+        }
+      }
+
+      // ==========================================
+      // DRAW BIJILI CRACKER (IF NOT EXPLODED)
+      // ==========================================
+      if (cracker.state !== 'exploded') {
+        ctx.save();
+
+        // 1. Shadow underneath cracker
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        ctx.beginPath();
+        ctx.ellipse(cracker.x, cracker.y + cracker.height / 2 + 8, cracker.width * 1.2, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2. The Burning Twisted Gunpowder Fuse (Thiri)
+        if (cracker.fuseLength > 0) {
+          ctx.strokeStyle = '#8c7853';
+          ctx.lineWidth = 3.5;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(crackerTopX, crackerTopY);
+          ctx.quadraticCurveTo(
+            crackerTopX + 15, crackerTopY - currentFuseHeight * 0.5,
+            fuseTipX, fuseTipY
+          );
+          ctx.stroke();
+
+          // If burning, draw spark ember on fuse tip
+          if (cracker.state === 'burning') {
+            ctx.shadowColor = '#ff5500';
+            ctx.shadowBlur = 18;
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(fuseTipX, fuseTipY, 4.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#ff8800';
+            ctx.beginPath();
+            ctx.arc(fuseTipX, fuseTipY, 8, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+        }
+
+        // 3. The Red Bijili Paper Cylindrical Body
+        const left = cracker.x - cracker.width / 2;
+        const top = crackerTopY;
+        const w = cracker.width;
+        const h = cracker.height;
+
+        // Gradient for 3D round cylinder effect
+        const cylGrad = ctx.createLinearGradient(left, 0, left + w, 0);
+        cylGrad.addColorStop(0, '#800000');
+        cylGrad.addColorStop(0.35, '#ff2222');
+        cylGrad.addColorStop(0.7, '#cc0000');
+        cylGrad.addColorStop(1, '#550000');
+
+        ctx.fillStyle = cylGrad;
+        ctx.beginPath();
+        ctx.roundRect(left, top, w, h, [6, 6, 4, 4]);
+        ctx.fill();
+
+        // 4. Authentic Gold / Yellow Twine thread wrapping around cracker
+        ctx.strokeStyle = '#ffd700';
+        ctx.lineWidth = 2.5;
+        for (let yOffset = 18; yOffset < h - 10; yOffset += 22) {
+          ctx.beginPath();
+          ctx.ellipse(cracker.x, top + yOffset, w / 2, 4, 0, 0, Math.PI);
+          ctx.stroke();
+        }
+
+        // 5. Classic "BIJILI / 28 SPECIAL" Cracker Gold Stamp Label
+        ctx.save();
+        ctx.translate(cracker.x, cracker.y);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillStyle = '#ffd700';
+        ctx.font = 'bold 10px "Courier New", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('★ BIJILI 28 ★', 0, 3);
+        ctx.restore();
+
+        ctx.restore();
+      }
+
+      // ==========================================
+      // UPDATE & DRAW PAPER SHREDS
+      // ==========================================
+      for (let i = paperShreds.length - 1; i >= 0; i--) {
+        const p = paperShreds[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.28; // gravity
+        p.vx *= 0.96;
+        p.rotation += p.rotSpeed;
+        p.life -= p.decay;
+
+        // Floor bounce
+        if (p.y > canvas.height - 30) {
+          p.y = canvas.height - 30;
+          p.vy = -p.vy * 0.3;
+          p.vx *= 0.7;
+        }
+
+        if (p.life <= 0) {
+          paperShreds.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        ctx.restore();
+      }
+
+      // ==========================================
+      // UPDATE & DRAW SPARKS
+      // ==========================================
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const s = sparks[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.vy += 0.15;
+        s.vx *= 0.97;
+        s.life -= s.decay;
+
+        if (s.life <= 0) {
+          sparks.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.fillStyle = s.color;
+        ctx.shadowColor = s.color;
+        ctx.shadowBlur = 10;
+        ctx.globalAlpha = s.life;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // ==========================================
+      // UPDATE & DRAW SMOKE
+      // ==========================================
+      for (let i = smoke.length - 1; i >= 0; i--) {
+        const sm = smoke[i];
+        sm.x += sm.vx;
+        sm.y += sm.vy;
+        sm.radius += sm.growth;
+        sm.alpha -= sm.decay;
+
+        if (sm.alpha <= 0) {
+          smoke.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.fillStyle = `rgba(180, 180, 190, ${sm.alpha * 0.35})`;
+        ctx.beginPath();
+        ctx.arc(sm.x, sm.y, sm.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // ==========================================
+      // DRAW AGARBATTI (BURNING INCENSE STICK) AT CURSOR
+      // ==========================================
+      if (mouse.x > 0 && mouse.y > 0) {
+        ctx.save();
+        const stickLength = 110;
+        const angle = -Math.PI / 4; // 45 degree angle
+
+        const tipX = mouse.x;
+        const tipY = mouse.y;
+        const tailX = tipX + Math.cos(angle + Math.PI) * stickLength;
+        const tailY = tipY + Math.sin(angle + Math.PI) * stickLength;
+
+        // Stick Wood Body
+        ctx.strokeStyle = '#8B4513';
+        ctx.lineWidth = 4;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(tipX, tipY);
+        ctx.stroke();
+
+        // Dark Incense coating
+        ctx.strokeStyle = '#3e2723';
+        ctx.lineWidth = 5.5;
+        ctx.beginPath();
+        ctx.moveTo(tailX + (tipX - tailX) * 0.25, tailY + (tipY - tailY) * 0.25);
+        ctx.lineTo(tipX, tipY);
+        ctx.stroke();
+
+        // Red/Orange Glowing Ember Tip
+        ctx.shadowColor = '#ff3300';
+        ctx.shadowBlur = 18;
+        ctx.fillStyle = '#ff3300';
+        ctx.beginPath();
+        ctx.arc(tipX, tipY, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // White hot center
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(tipX, tipY, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Continuous thin wisp of aromatic smoke from Agarbatti tip
+        if (Math.random() < 0.4) {
+          smoke.push({
+            x: tipX,
+            y: tipY,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: -Math.random() * 1.5 - 0.8,
+            radius: Math.random() * 5 + 3,
+            alpha: 0.45,
+            growth: 0.2,
+            decay: 0.015
+          });
+        }
+
+        ctx.restore();
+      }
+
+      ctx.restore();
+      requestAnimationFrame(loop);
     }
 
-    // Active Cracker Type Selection
-    let activeCracker = 'rocket';
-    const dockButtons = document.querySelectorAll('.cracker-btn');
-    dockButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        initAudio();
-        dockButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeCracker = btn.getAttribute('data-type');
-        updateHintText();
-      });
-    });
-
-    function updateHintText() {
-      if (activeCracker === 'rocket') hintEl.innerText = '🚀 Click anywhere in the sky to launch rockets!';
-      else if (activeCracker === 'flowerpot') hintEl.innerText = '🌺 Click ground to light an Anar flowerpot!';
-      else if (activeCracker === 'chakra') hintEl.innerText = '🌀 Click ground to spin a glowing Ground Chakra!';
-      else if (activeCracker === 'bomb') hintEl.innerText = '💣 Click ground to place an Atom Bomb!';
-      else if (activeCracker === 'sparkler') hintEl.innerText = '✨ Move mouse or drag finger to burn sparkler!';
-    }
-    updateHintText();
-
-    // Trigger Cracker Function
-    function triggerCracker(x, y) {
+    // UI Buttons
+    document.getElementById('new-cracker-btn').addEventListener('click', () => {
       initAudio();
-      if (activeCracker === 'rocket') {
-        rockets.push(new Rocket(x, Math.min(y, canvas.height * 0.65)));
-      } else if (activeCracker === 'flowerpot') {
-        groundCrackers.push(new Flowerpot(x));
-      } else if (activeCracker === 'chakra') {
-        groundCrackers.push(new Chakra(x));
-      } else if (activeCracker === 'bomb') {
-        groundCrackers.push(new AtomBomb(x));
-      } else if (activeCracker === 'sparkler') {
-        makeSparkler(x, y);
-      }
-    }
-
-    function makeSparkler(x, y) {
-      initAudio();
-      for (let i = 0; i < 8; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4 + 1;
-        particles.push(new Particle(
-          x, y, '#ffd700',
-          Math.cos(angle) * speed, Math.sin(angle) * speed,
-          0.6, Math.random() * 2.5 + 1, 0.05, 0.95, true
-        ));
-      }
-      if (Math.random() < 0.25) playSound('crackle');
-    }
-
-    // Canvas Interactions
-    let isMouseDown = false;
-    canvas.addEventListener('mousedown', (e) => {
-      isMouseDown = true;
-      triggerCracker(e.clientX, e.clientY);
+      resetCracker();
     });
 
-    canvas.addEventListener('mousemove', (e) => {
-      if (isMouseDown && activeCracker === 'sparkler') {
-        makeSparkler(e.clientX, e.clientY);
-      }
-    });
-
-    window.addEventListener('mouseup', () => { isMouseDown = false; });
-
-    // Touch Support
-    canvas.addEventListener('touchstart', (e) => {
-      isMouseDown = true;
-      const touch = e.touches[0];
-      triggerCracker(touch.clientX, touch.clientY);
-    }, { passive: true });
-
-    canvas.addEventListener('touchmove', (e) => {
-      if (activeCracker === 'sparkler') {
-        const touch = e.touches[0];
-        makeSparkler(touch.clientX, touch.clientY);
-      }
-    }, { passive: true });
-
-    window.addEventListener('touchend', () => { isMouseDown = false; });
-
-    // Auto Fireworks Show Toggle
-    let autoFireworks = false;
-    let autoInterval = null;
-    const autoBtn = document.getElementById('auto-btn');
-    autoBtn.addEventListener('click', () => {
-      initAudio();
-      autoFireworks = !autoFireworks;
-      if (autoFireworks) {
-        autoBtn.innerText = '🎆 Auto Fireworks: ON';
-        autoBtn.classList.add('active');
-        autoInterval = setInterval(() => {
-          const rx = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
-          const ry = Math.random() * (canvas.height * 0.5) + canvas.height * 0.1;
-          rockets.push(new Rocket(rx, ry));
-        }, 700);
-      } else {
-        autoBtn.innerText = '🎆 Auto Fireworks: OFF';
-        autoBtn.classList.remove('active');
-        clearInterval(autoInterval);
-      }
-    });
-
-    // Sound Toggle
     const soundBtn = document.getElementById('sound-btn');
     soundBtn.addEventListener('click', () => {
       initAudio();
       soundEnabled = !soundEnabled;
       soundBtn.innerText = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: MUTED';
-      soundBtn.classList.toggle('active', !soundEnabled);
+      soundBtn.style.borderColor = soundEnabled ? '#ff9900' : '#666';
     });
 
-    // Draw Peaceful Festive Diyas on Ground
-    function drawDiyas() {
-      for (let diya of diyas) {
-        diya.flicker += 0.1;
-        const flameOffset = Math.sin(diya.flicker) * 2;
-
-        // Clay Base
-        ctx.save();
-        ctx.fillStyle = '#a0522d';
-        ctx.beginPath();
-        ctx.ellipse(diya.x, diya.y, 16, 7, 0, 0, Math.PI);
-        ctx.fill();
-        ctx.restore();
-
-        // Golden Flickering Flame
-        ctx.save();
-        ctx.shadowColor = '#ff9900';
-        ctx.shadowBlur = 18;
-        ctx.fillStyle = '#ffdd00';
-        ctx.beginPath();
-        ctx.moveTo(diya.x - 4, diya.y - 2);
-        ctx.quadraticCurveTo(diya.x + flameOffset, diya.y - 18, diya.x + 4, diya.y - 2);
-        ctx.closePath();
-        ctx.fill();
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(diya.x, diya.y - 6, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    // Main Animation Loop
-    function loop() {
-      // Semi-transparent clear for motion blur trail
-      ctx.fillStyle = 'rgba(3, 4, 12, 0.22)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw Twinkling Stars
-      ctx.fillStyle = '#ffffff';
-      for (let s of stars) {
-        s.alpha += Math.sin(Date.now() * s.flicker) * 0.005;
-        ctx.globalAlpha = Math.max(0.2, Math.min(1, s.alpha));
-        ctx.fillRect(s.x, s.y, s.size, s.size);
-      }
-      ctx.globalAlpha = 1;
-
-      // Draw Diyas & Ground Shadow
-      drawDiyas();
-
-      // Update and Draw Rockets
-      for (let i = rockets.length - 1; i >= 0; i--) {
-        if (!rockets[i].update()) {
-          rockets.splice(i, 1);
-        } else {
-          rockets[i].draw();
-        }
-      }
-
-      // Update and Draw Ground Crackers (Flowerpot, Chakra, Bomb)
-      for (let i = groundCrackers.length - 1; i >= 0; i--) {
-        if (!groundCrackers[i].update()) {
-          groundCrackers.splice(i, 1);
-        } else {
-          groundCrackers[i].draw();
-        }
-      }
-
-      // Update and Draw Particles
-      for (let i = particles.length - 1; i >= 0; i--) {
-        if (!particles[i].update()) {
-          particles.splice(i, 1);
-        } else {
-          particles[i].draw();
-        }
-      }
-
-      requestAnimationFrame(loop);
-    }
-
-    // Start loop
     loop();
   </script>
 </body>
