@@ -191,6 +191,30 @@
       font-weight: 800;
       letter-spacing: 3px;
     }
+    .diya-badge {
+      width: clamp(70px, 12vw, 105px);
+      height: auto;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 0 25px rgba(255, 180, 0, 0.95));
+      animation: diyaFlicker 2s infinite alternate ease-in-out;
+    }
+    .greeting-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .greeting-diya {
+      width: clamp(45px, 8vw, 85px);
+      height: auto;
+      filter: drop-shadow(0 0 25px rgba(255, 180, 0, 0.95));
+      animation: diyaFlicker 1.8s infinite alternate ease-in-out;
+    }
+    @keyframes diyaFlicker {
+      0% { transform: scale(1); filter: drop-shadow(0 0 18px rgba(255, 160, 0, 0.8)); }
+      50% { transform: scale(1.08); filter: drop-shadow(0 0 32px rgba(255, 220, 50, 1)); }
+      100% { transform: scale(0.98); filter: drop-shadow(0 0 22px rgba(255, 140, 0, 0.85)); }
+    }
   </style>
 </head>
 <body>
@@ -199,6 +223,7 @@
 
   <!-- Start Show Overlay -->
   <div id="start-overlay">
+    <img src="diya.png" alt="Diwali Diya" class="diya-badge">
     <h2>🎆 30-SECOND DIWALI SKY SHOT SHOW 🪔</h2>
     <p>
       Enjoy a 30-second continuous, slow &amp; majestic Sky Shot fireworks show! 🚀<br>
@@ -209,7 +234,11 @@
 
   <!-- Final Glowing Greeting -->
   <div id="final-greeting">
-    <h1>🪔 HAPPY DIWALI 🪔</h1>
+    <div class="greeting-row">
+      <img src="diya.png" alt="Diwali Diya" class="greeting-diya">
+      <h1>HAPPY DIWALI</h1>
+      <img src="diya.png" alt="Diwali Diya" class="greeting-diya">
+    </div>
     <div class="sub">✨ WISHING YOU PROSPERITY &amp; JOY ✨</div>
   </div>
 
@@ -669,6 +698,10 @@
       soundBtn.innerText = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: MUTED';
     });
 
+    // Diya Image for Terrace
+    const diyaImg = new Image();
+    diyaImg.src = 'diya.png';
+
     // Main Render Loop
     function loop() {
       // Semi-transparent fade for long light trails
@@ -693,6 +726,40 @@
       ctx.moveTo(0, groundY);
       ctx.lineTo(canvas.width, groundY);
       ctx.stroke();
+
+      // Row of Flickering Festive Diyas on the Terrace
+      if (diyaImg.complete && diyaImg.naturalWidth > 0) {
+        const diyaWidth = Math.min(42, Math.max(26, canvas.width * 0.035));
+        const diyaHeight = diyaWidth;
+        const spacing = Math.max(65, canvas.width / Math.floor(canvas.width / 75));
+        const numDiyas = Math.floor(canvas.width / spacing);
+        const startX = (canvas.width - (numDiyas - 1) * spacing) / 2;
+
+        const time = Date.now() * 0.005;
+        for (let i = 0; i < numDiyas; i++) {
+          const dx = startX + i * spacing - diyaWidth / 2;
+          const dy = groundY - diyaHeight + 4;
+
+          // Warm flickering flame aura
+          const flicker = Math.sin(time + i * 1.5) * 4 + 14;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(dx + diyaWidth / 2, dy + diyaHeight * 0.35, flicker, 0, Math.PI * 2);
+          const radGrad = ctx.createRadialGradient(
+            dx + diyaWidth / 2, dy + diyaHeight * 0.35, 2,
+            dx + diyaWidth / 2, dy + diyaHeight * 0.35, flicker
+          );
+          radGrad.addColorStop(0, 'rgba(255, 240, 150, 0.85)');
+          radGrad.addColorStop(0.45, 'rgba(255, 150, 20, 0.45)');
+          radGrad.addColorStop(1, 'rgba(255, 80, 0, 0)');
+          ctx.fillStyle = radGrad;
+          ctx.fill();
+
+          // Draw the Diya
+          ctx.drawImage(diyaImg, dx, dy, diyaWidth, diyaHeight);
+          ctx.restore();
+        }
+      }
 
       // Sky Shots
       for (let i = skyShots.length - 1; i >= 0; i--) {
