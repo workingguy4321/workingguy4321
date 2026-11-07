@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>🪔 30-SECOND GRAND DIWALI SKY SHOT SHOW 🎆</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background: #02030a;
+      color: #ffd700;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    #stage-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    /* Top HUD */
+    #top-hud {
+      position: absolute;
+      top: 15px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      pointer-events: none;
+      z-index: 20;
+    }
+    h1 {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffe066, #ff8c00, #ff0055, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+    }
+    #status-bar {
+      font-size: clamp(13px, 1.8vw, 16px);
+      color: #fff2a3;
+      margin-top: 6px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.9);
+      background: rgba(10, 5, 20, 0.7);
+      display: inline-block;
+      padding: 6px 24px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 153, 0, 0.4);
+      font-weight: 700;
+    }
+    /* Controls Top Right */
+    #top-controls {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 30;
+      display: flex;
+      gap: 10px;
+    }
+    .hud-btn {
+      background: rgba(18, 10, 35, 0.85);
+      border: 1.5px solid #ff9900;
+      color: #ffd700;
+      padding: 9px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 0 15px rgba(255, 153, 0, 0.3);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+    }
+    .hud-btn:hover {
+      background: linear-gradient(135deg, #ff9900, #ff0055);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+    /* Start / Replay Big Button */
+    #start-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 3, 10, 0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+      text-align: center;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
+    #start-overlay h2 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffe066, #ff8c00, #ff0055, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+    }
+    #start-overlay p {
+      font-size: clamp(14px, 2vw, 18px);
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    .play-btn {
+      background: linear-gradient(135deg, #ff0055, #ff9900);
+      border: 2px solid #ffd700;
+      color: #ffffff;
+      padding: 16px 42px;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 35px rgba(255, 0, 85, 0.7);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .play-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 50px rgba(255, 153, 0, 0.9);
+    }
+    /* Screen Flash */
+    #flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 25;
+      transition: opacity 0.08s ease-out;
+    }
+    /* Final Floating Greeting */
+    #final-greeting {
+      position: absolute;
+      top: 38%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 35;
+      transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #final-greeting.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    #final-greeting .sub {
+      font-size: clamp(16px, 3.2vw, 28px);
+      color: #ffffff;
+      text-shadow: 0 0 15px #ff007f, 0 0 30px #00ffff;
+      font-weight: 800;
+      letter-spacing: 3px;
+    }
+    .diya-badge {
+      width: clamp(70px, 12vw, 105px);
+      height: auto;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 0 25px rgba(255, 180, 0, 0.95));
+      animation: diyaFlicker 2s infinite alternate ease-in-out;
+    }
+    .greeting-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .greeting-diya {
+      width: clamp(45px, 8vw, 85px);
+      height: auto;
+      filter: drop-shadow(0 0 25px rgba(255, 180, 0, 0.95));
+      animation: diyaFlicker 1.8s infinite alternate ease-in-out;
+    }
+    @keyframes diyaFlicker {
+      0% { transform: scale(1); filter: drop-shadow(0 0 18px rgba(255, 160, 0, 0.8)); }
+      50% { transform: scale(1.08); filter: drop-shadow(0 0 32px rgba(255, 220, 50, 1)); }
+      100% { transform: scale(0.98); filter: drop-shadow(0 0 22px rgba(255, 140, 0, 0.85)); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="flash"></div>
+
+  <!-- Start Show Overlay -->
+  <div id="start-overlay">
+    <img src="diya.png" alt="Diwali Diya" class="diya-badge">
+    <h2>🎆 30-SECOND DIWALI SKY SHOT SHOW 🪔</h2>
+    <p>
+      Enjoy a 30-second continuous, slow &amp; majestic Sky Shot fireworks show! 🚀<br>
+      Watch the wide sky fill with slow blooming bursts, <b>glowing Heart shapes ❤️</b>, and the <b>Grand Finale: Two final sky shots revealing "HAPPY DIWALI"!</b>
+    </p>
+    <button class="play-btn" id="start-show-btn">🚀 IGNITE 30-SECOND SHOW 🪔</button>
+  </div>
+
+  <!-- Final Glowing Greeting (Frames the Sky Firework Text cleanly) -->
+  <div id="final-greeting">
+    <div class="greeting-row">
+      <img src="diya.png" alt="Diwali Diya" class="greeting-diya">
+      <div class="sub">✨ WISHING YOU PROSPERITY &amp; JOY ✨</div>
+      <img src="diya.png" alt="Diwali Diya" class="greeting-diya">
+    </div>
+  </div>
+
+  <div id="stage-container">
+    <div id="top-hud">
+      <div id="status-bar">⏱️ Show Time: 30s Remaining (Watch for Hearts ❤️)</div>
+    </div>
+
+    <div id="top-controls">
+      <button class="hud-btn" id="restart-btn">🔄 Restart Show</button>
+      <button class="hud-btn" id="sound-btn">🔊 Sound: ON</button>
+    </div>
+
+    <canvas id="mainCanvas"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+    const flashEl = document.getElementById('flash');
+    const statusBar = document.getElementById('status-bar');
+    const startOverlay = document.getElementById('start-overlay');
+    const finalGreeting = document.getElementById('final-greeting');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Audio Synthesizer
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSound(type) {
+      if (!soundEnabled || !audioCtx) return;
+      const now = audioCtx.currentTime;
+
+      if (type === 'whistle') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(320, now);
+        osc.frequency.exponentialRampToValueAtTime(1650, now + 1.0);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.0);
+        osc.start(now);
+        osc.stop(now + 1.0);
+      }
+      else if (type === 'boom') {
+        // Deep sub-bass aerial blast with slow rumble
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.exponentialRampToValueAtTime(26, now + 0.75);
+        gain.gain.setValueAtTime(0.9, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.75);
+        osc.start(now);
+        osc.stop(now + 0.75);
+
+        // Noise crackle
+        const bufferSize = audioCtx.sampleRate * 0.55;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1200, now);
+        filter.frequency.exponentialRampToValueAtTime(110, now + 0.55);
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.65, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.55);
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
+        noise.start(now);
+      }
+      else if (type === 'finaleBoom') {
+        // Massive Deep Thunder for the Last 2 Sky Shots
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(20, now + 0.85);
+        gain.gain.setValueAtTime(1.0, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.85);
+        osc.start(now);
+        osc.stop(now + 0.85);
+      }
+      else if (type === 'snap') {
+        // Sharp Authentic Bijili Blast (PATT!)
+        const snapBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.09, audioCtx.sampleRate);
+        const data = snapBuf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        const source = audioCtx.createBufferSource();
+        source.buffer = snapBuf;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.setValueAtTime(650, now);
+        const snapGain = audioCtx.createGain();
+        snapGain.gain.setValueAtTime(1.2, now);
+        snapGain.gain.exponentialRampToValueAtTime(0.01, now + 0.09);
+        source.connect(filter);
+        filter.connect(snapGain);
+        snapGain.connect(audioCtx.destination);
+        source.start(now);
+      }
+      else if (type === 'hiss') {
+        // Sizzling Fuse Hiss
+        const hissBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.45, audioCtx.sampleRate);
+        const data = hissBuf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        const source = audioCtx.createBufferSource();
+        source.buffer = hissBuf;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(2600, now);
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.09, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+        source.start(now);
+      }
+      else if (type === 'crackle') {
+        // Spark crackle
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(850 + Math.random() * 700, now);
+        gain.gain.setValueAtTime(0.07, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+        osc.start(now);
+        osc.stop(now + 0.05);
+      }
+    }
+
+    function screenFlash(opacity = 0.45) {
+      flashEl.style.opacity = opacity;
+      setTimeout(() => { flashEl.style.opacity = '0'; }, 90);
+    }
+
+    // Color Palettes
+    const palettes = [
+      ['#ff0055', '#ff9900', '#ffd700'], // Fire & Gold
+      ['#00ffff', '#00ff66', '#ffffff'], // Cyan & Emerald
+      ['#c084fc', '#ff00aa', '#00f0ff'], // Cosmic Purple
+      ['#ff007f', '#ffffff', '#ff3366'], // Heart Red/Pink
+      ['#ffe600', '#ff5500', '#ffffff']  // Golden Sparkle
+    ];
+
+    // Arrays
+    let skyShots = [];
+    let particles = [];
+    let textParticles = [];
+    let hasCreatedText = false;
+
+    // Background Stars
+    const stars = [];
+    for (let i = 0; i < 90; i++) {
+      stars.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * (window.innerHeight * 0.7),
+        size: Math.random() * 1.8 + 0.5,
+        alpha: Math.random() * 0.6 + 0.3
+      });
+    }
+
+    // Standard Particle Class (Graceful slow bloom & floating physics)
+    class Particle {
+      constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.038, friction = 0.978, decay = null) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.vx = vx;
+        this.vy = vy;
+        this.alpha = life;
+        this.decay = decay || (Math.random() * 0.009 + 0.007);
+        this.size = size;
+        this.gravity = gravity;
+        this.friction = friction;
+      }
+      update() {
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= this.decay;
+        this.size = Math.max(0.2, this.size * 0.985);
+        return this.alpha > 0;
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 12;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Firework Letter Text Particle
+    class TextFireworkParticle {
+      constructor(targetX, targetY, color) {
+        this.x = targetX + (Math.random() - 0.5) * 60;
+        this.y = targetY + (Math.random() - 0.5) * 60;
+        this.targetX = targetX;
+        this.targetY = targetY;
+        this.color = color;
+        this.alpha = 1;
+        this.size = Math.random() * 3.5 + 2.5;
+        this.decay = 0.0028; // slow drift so greeting stays beautifully readable
+        this.flicker = Math.random() * Math.PI;
+      }
+      update() {
+        // Magnetically lock smoothly to target letter coordinates
+        this.x += (this.targetX - this.x) * 0.06;
+        this.y += (this.targetY - this.y) * 0.06;
+        this.y += 0.04; // very gentle downward drift
+        this.targetY += 0.04;
+        this.alpha -= this.decay;
+        this.flicker += 0.12;
+        return this.alpha > 0;
+      }
+      draw() {
+        ctx.save();
+        const fAlpha = this.alpha * (0.8 + Math.sin(this.flicker) * 0.2);
+        ctx.globalAlpha = Math.max(0, fAlpha);
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 15;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Generate Firework Text Particles for "HAPPY DIWALI" across wide canvas
+    function createHappyDiwaliParticles(centerX, centerY) {
+      const textCanvas = document.createElement('canvas');
+      const textWidth = Math.min(canvas.width * 0.90, 880);
+      const fontSize = Math.max(32, Math.floor(textWidth / 10.5));
+      textCanvas.width = textWidth;
+      textCanvas.height = fontSize * 2.4;
+      const tCtx = textCanvas.getContext('2d');
+
+      tCtx.fillStyle = '#ffffff';
+      tCtx.font = `900 ${fontSize}px "Segoe UI", sans-serif`;
+      tCtx.textAlign = 'center';
+      tCtx.textBaseline = 'middle';
+      tCtx.fillText('HAPPY DIWALI', textCanvas.width / 2, textCanvas.height / 2);
+
+      const imgData = tCtx.getImageData(0, 0, textCanvas.width, textCanvas.height);
+      const data = imgData.data;
+      const gap = Math.max(4, Math.floor(fontSize / 8.5)); // density
+
+      for (let y = 0; y < textCanvas.height; y += gap) {
+        for (let x = 0; x < textCanvas.width; x += gap) {
+          const index = (y * textCanvas.width + x) * 4;
+          if (data[index + 3] > 128) {
+            const posX = centerX - textCanvas.width / 2 + x;
+            const posY = centerY - textCanvas.height / 2 + y;
+            const color = (x < textCanvas.width / 2) ? '#ffd700' : '#ff007f';
+            textParticles.push(new TextFireworkParticle(posX, posY, color));
+          }
+        }
+      }
+    }
+
+    // Sky Shot Class (Widened Launch & Slow Ascending Rocket)
+    class SkyShot {
+      constructor(targetX, targetY, isHeart = false, isFinale = false) {
+        this.targetX = targetX;
+        this.targetY = targetY;
+        // Widen launch origin along the entire ground horizon
+        this.x = isFinale ? targetX : (canvas.width * 0.08 + Math.random() * (canvas.width * 0.84));
+        this.y = canvas.height * 0.85;
+        const dx = this.targetX - this.x;
+        const dy = this.targetY - this.y;
+        const dist = Math.hypot(dx, dy);
+        // Slower majestic rocket speed
+        const speed = isFinale ? 6.5 : (Math.random() * 2 + 5.5);
+        this.vx = (dx / dist) * speed;
+        this.vy = (dy / dist) * speed;
+        this.isHeart = isHeart;
+        this.isFinale = isFinale;
+        this.palette = palettes[Math.floor(Math.random() * palettes.length)];
+        playSound('whistle');
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Glowing fire tracer tail
+        for (let i = 0; i < 2; i++) {
+          particles.push(new Particle(
+            this.x, this.y, '#ffd700',
+            (Math.random() - 0.5) * 1.5, Math.random() * 1.8 + 0.8,
+            0.6, 2.5, 0.015, 0.97, 0.015
+          ));
+        }
+
+        if (this.vy >= 0 || this.y <= this.targetY) {
+          this.burst();
+          return false;
+        }
+        return true;
+      }
+      burst() {
+        if (this.isFinale) {
+          playSound('finaleBoom');
+          screenFlash(0.7);
+
+          // Form "HAPPY DIWALI" text once cleanly in the upper sky
+          if (!hasCreatedText) {
+            hasCreatedText = true;
+            createHappyDiwaliParticles(canvas.width / 2, canvas.height * 0.22);
+            finalGreeting.classList.add('show');
+          }
+
+          // Massive surrounding golden glitter crown
+          for (let i = 0; i < 150; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 9 + 2;
+            particles.push(new Particle(
+              this.x, this.y, ['#ffd700', '#ffffff', '#ff007f', '#00ffff'][i % 4],
+              Math.cos(angle) * speed, Math.sin(angle) * speed,
+              1.4, Math.random() * 4 + 2, 0.035, 0.98, 0.007
+            ));
+          }
+          return;
+        }
+
+        playSound('boom');
+        screenFlash(0.35);
+
+        // ==========================================
+        // WIDENED HEART SHAPED BURST ❤️
+        // ==========================================
+        if (this.isHeart) {
+          const scale = Math.min(canvas.width, canvas.height) * 0.018;
+          for (let t = 0; t < Math.PI * 2; t += 0.09) {
+            // Parametric Heart Curve Formula
+            const hx = 16 * Math.pow(Math.sin(t), 3) * scale;
+            const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * scale;
+            const speed = 0.055;
+            particles.push(new Particle(
+              this.x, this.y, '#ff007f',
+              hx * speed, hy * speed, 1.4, 3.8, 0.012, 0.98, 0.0065
+            ));
+          }
+          // Inner glowing heart core
+          for (let i = 0; i < 25; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 2.5 + 0.8;
+            particles.push(new Particle(
+              this.x, this.y, '#ffffff',
+              Math.cos(angle) * speed, Math.sin(angle) * speed, 1.1, 2.8, 0.018, 0.97, 0.009
+            ));
+          }
+          return;
+        }
+
+        // ==========================================
+        // WIDENED SLOW-BLOOM SPHERICAL BURST 🎆
+        // ==========================================
+        const count = Math.floor(Math.random() * 35 + 95);
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 6.5 + 1.8;
+          const color = this.palette[i % this.palette.length];
+          particles.push(new Particle(
+            this.x, this.y, color,
+            Math.cos(angle) * speed, Math.sin(angle) * speed,
+            1.2, Math.random() * 3.5 + 2, 0.035, 0.978, 0.008
+          ));
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = '#00ffff';
+        ctx.shadowBlur = 15;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.isFinale ? 5.5 : 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // ========================================================
+    // 30-SECOND TIMELINE SHOW ORCHESTRATION ENGINE
+    // ========================================================
+    let showActive = false;
+    let showTime = 30; // 30 seconds show
+    let showTimerInterval = null;
+    let rocketLaunchInterval = null;
+    let finaleLaunched = false;
+
+    function startShow() {
+      initAudio();
+      startOverlay.style.display = 'none';
+      finalGreeting.classList.remove('show');
+      showActive = true;
+      showTime = 30;
+      finaleLaunched = false;
+      hasCreatedText = false;
+      skyShots = [];
+      particles = [];
+      textParticles = [];
+
+      clearInterval(showTimerInterval);
+      clearInterval(rocketLaunchInterval);
+
+      // Countdown Timer (30 Seconds)
+      showTimerInterval = setInterval(() => {
+        showTime--;
+        if (showTime > 6) {
+          statusBar.innerText = `⏱️ Show Time: ${showTime}s Remaining (Watch for Hearts ❤️)`;
+        } else if (showTime > 2) {
+          statusBar.innerText = `🚀 GRAND FINALE INCOMING: Final 2 Sky Shots preparing...`;
+        } else if (showTime > 0) {
+          statusBar.innerText = `🎆 THE FINAL BLAST: HAPPY DIWALI! 🪔`;
+        } else {
+          statusBar.innerText = `✨ HAPPY DIWALI! ✨ Enjoy the celebration!`;
+          clearInterval(showTimerInterval);
+        }
+
+        // Trigger the Last 2 Sky Shots at 5 seconds remaining
+        if (showTime === 5 && !finaleLaunched) {
+          launchGrandFinale();
+        }
+      }, 1000);
+
+      // Spaced Out, Relaxed Continuous Rocket Launcher (Launches every 1350ms)
+      rocketLaunchInterval = setInterval(() => {
+        // Pause regular rockets near the end to spotlight the last 2 sky shots
+        if (showTime <= 6) return;
+
+        // Widened target coordinates across the expansive night sky
+        const targetX = canvas.width * 0.06 + Math.random() * (canvas.width * 0.88);
+        const targetY = canvas.height * 0.08 + Math.random() * (canvas.height * 0.44);
+
+        // Frequent glowing HEART shape bursts!
+        const isHeart = Math.random() < 0.32;
+        skyShots.push(new SkyShot(targetX, targetY, isHeart));
+      }, 1350);
+    }
+
+    // THE GRAND FINALE: TWO FINAL SKY SHOTS REVEALING "HAPPY DIWALI"
+    function launchGrandFinale() {
+      finaleLaunched = true;
+      clearInterval(rocketLaunchInterval);
+
+      // Shot 1 (Left Side - Widened)
+      setTimeout(() => {
+        skyShots.push(new SkyShot(canvas.width * 0.28, canvas.height * 0.25, false, true));
+      }, 200);
+
+      // Shot 2 (Right Side - Widened)
+      setTimeout(() => {
+        skyShots.push(new SkyShot(canvas.width * 0.72, canvas.height * 0.25, false, true));
+      }, 900);
+    }
+
+    // Canvas Click: Click anywhere to launch Sky Shots!
+    canvas.addEventListener('click', (e) => {
+      initAudio();
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const isHeart = Math.random() < 0.35;
+      skyShots.push(new SkyShot(x, y, isHeart));
+    });
+
+    // Button Listeners
+    document.getElementById('start-show-btn').addEventListener('click', startShow);
+    document.getElementById('restart-btn').addEventListener('click', startShow);
+
+    const soundBtn = document.getElementById('sound-btn');
+    soundBtn.addEventListener('click', () => {
+      initAudio();
+      soundEnabled = !soundEnabled;
+      soundBtn.innerText = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: MUTED';
+    });
+
+    // Diya Image for Terrace
+    const diyaImg = new Image();
+    diyaImg.src = 'diya.png';
+
+    // Main Render Loop
+    function loop() {
+      // Semi-transparent fade for long light trails
+      ctx.fillStyle = 'rgba(2, 3, 10, 0.22)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Stars
+      ctx.fillStyle = '#ffffff';
+      for (let s of stars) {
+        ctx.globalAlpha = s.alpha;
+        ctx.fillRect(s.x, s.y, s.size, s.size);
+      }
+      ctx.globalAlpha = 1;
+
+      // Ground Silhouette
+      const groundY = canvas.height * 0.85;
+      ctx.fillStyle = '#080512';
+      ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
+      ctx.strokeStyle = '#ff9900';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, groundY);
+      ctx.lineTo(canvas.width, groundY);
+      ctx.stroke();
+
+      // Row of Flickering Festive Diyas on the Terrace
+      if (diyaImg.complete && diyaImg.naturalWidth > 0) {
+        const diyaWidth = Math.min(42, Math.max(26, canvas.width * 0.035));
+        const diyaHeight = diyaWidth;
+        const spacing = Math.max(65, canvas.width / Math.floor(canvas.width / 75));
+        const numDiyas = Math.floor(canvas.width / spacing);
+        const startX = (canvas.width - (numDiyas - 1) * spacing) / 2;
+
+        const time = Date.now() * 0.005;
+        for (let i = 0; i < numDiyas; i++) {
+          const dx = startX + i * spacing - diyaWidth / 2;
+          const dy = groundY - diyaHeight + 4;
+
+          // Warm flickering flame aura
+          const flicker = Math.sin(time + i * 1.5) * 4 + 14;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(dx + diyaWidth / 2, dy + diyaHeight * 0.35, flicker, 0, Math.PI * 2);
+          const radGrad = ctx.createRadialGradient(
+            dx + diyaWidth / 2, dy + diyaHeight * 0.35, 2,
+            dx + diyaWidth / 2, dy + diyaHeight * 0.35, flicker
+          );
+          radGrad.addColorStop(0, 'rgba(255, 240, 150, 0.85)');
+          radGrad.addColorStop(0.45, 'rgba(255, 150, 20, 0.45)');
+          radGrad.addColorStop(1, 'rgba(255, 80, 0, 0)');
+          ctx.fillStyle = radGrad;
+          ctx.fill();
+
+          // Draw the Diya
+          ctx.drawImage(diyaImg, dx, dy, diyaWidth, diyaHeight);
+          ctx.restore();
+        }
+      }
+
+      // Sky Shots
+      for (let i = skyShots.length - 1; i >= 0; i--) {
+        if (!skyShots[i].update()) {
+          skyShots.splice(i, 1);
+        } else {
+          skyShots[i].draw();
+        }
+      }
+
+      // Explosion Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        if (!particles[i].update()) {
+          particles.splice(i, 1);
+        } else {
+          particles[i].draw();
+        }
+      }
+
+      // Final Firework Text Particles ("HAPPY DIWALI")
+      for (let i = textParticles.length - 1; i >= 0; i--) {
+        if (!textParticles[i].update()) {
+          textParticles.splice(i, 1);
+        } else {
+          textParticles[i].draw();
+        }
+      }
+
+      requestAnimationFrame(loop);
+    }
+
+    loop();
+  </script>
+</body>
+</html>
