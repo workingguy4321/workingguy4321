@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>🪔 DIWALI CRACKERS // Bijili, Anar & Atom Bomb ✨</title>
+  <title>🚀 DIWALI SKY SHOT & BIJILI SIMULATOR 🪔 // Happy Deepavali!</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,7 +13,7 @@
       -webkit-tap-highlight-color: transparent;
     }
     body {
-      background: #03040b;
+      background: #02030a;
       color: #ffd700;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden;
@@ -34,7 +34,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      cursor: pointer;
+      cursor: crosshair;
     }
     /* Header HUD */
     #top-hud {
@@ -47,20 +47,25 @@
       z-index: 20;
     }
     h1 {
-      font-size: clamp(22px, 4vw, 38px);
+      font-size: clamp(22px, 4.2vw, 38px);
       font-weight: 900;
       letter-spacing: 2px;
-      background: linear-gradient(135deg, #ffe066, #ff8c00, #ff0055, #ffd700);
+      background: linear-gradient(135deg, #ffe066, #ff8c00, #ff0055, #00ffff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+      text-shadow: 0 0 25px rgba(255, 140, 0, 0.6);
+      animation: pulseTitle 2s ease-in-out infinite alternate;
+    }
+    @keyframes pulseTitle {
+      0% { transform: scale(0.98); }
+      100% { transform: scale(1.02); }
     }
     #hint-bar {
       font-size: clamp(13px, 1.8vw, 16px);
       color: #fff2a3;
       margin-top: 6px;
       text-shadow: 0 0 10px rgba(0,0,0,0.9);
-      background: rgba(10, 5, 20, 0.65);
+      background: rgba(8, 4, 18, 0.7);
       display: inline-block;
       padding: 5px 22px;
       border-radius: 20px;
@@ -88,24 +93,24 @@
       transition: all 0.2s ease;
       backdrop-filter: blur(8px);
     }
-    .hud-btn:hover {
+    .hud-btn:hover, .hud-btn.active {
       background: linear-gradient(135deg, #ff9900, #ff0055);
       color: #ffffff;
       transform: scale(1.05);
     }
-    /* Cracker Dock (Only 3 Crackers Now) */
+    /* Cracker Dock (Sky Shot, Bijili & Sparkler) */
     #cracker-dock {
       position: absolute;
       bottom: 22px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 30;
-      background: rgba(12, 6, 28, 0.94);
+      background: rgba(10, 5, 25, 0.92);
       border: 2px solid #ff9900;
       border-radius: 50px;
-      padding: 10px 20px;
+      padding: 10px 22px;
       display: flex;
-      gap: 14px;
+      gap: 15px;
       box-shadow: 0 0 35px rgba(255, 153, 0, 0.45);
       backdrop-filter: blur(12px);
     }
@@ -113,7 +118,7 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1.5px solid rgba(255, 153, 0, 0.35);
       color: #ffffff;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 30px;
       cursor: pointer;
       display: flex;
@@ -132,9 +137,9 @@
       border-color: #ffd700;
     }
     .dock-btn.active {
-      background: linear-gradient(135deg, #ff8c00, #ff0055);
-      border-color: #ffe066;
-      box-shadow: 0 0 25px rgba(255, 140, 0, 0.9);
+      background: linear-gradient(135deg, #00f0ff, #7000ff);
+      border-color: #00ffff;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
       transform: translateY(-3px) scale(1.06);
     }
     #flash {
@@ -158,19 +163,19 @@
   <div id="stage-container">
     <div id="top-hud">
       <h1>🪔 HAPPY DIWALI 🪔</h1>
-      <div id="hint-bar">🧨 Click on the ground to place & light a Red Bijili cracker!</div>
+      <div id="hint-bar">🚀 Click anywhere in the sky to launch colorful Sky Shots!</div>
     </div>
 
     <div id="top-controls">
-      <button class="hud-btn" id="clear-btn">🧹 Clear Ground</button>
+      <button class="hud-btn" id="auto-btn">🎆 Auto Sky Shots: OFF</button>
       <button class="hud-btn" id="sound-btn">🔊 Sound: ON</button>
     </div>
 
-    <!-- Only Bijili, Anar & Atom Bomb -->
+    <!-- Dock: Only Sky Shot, Bijili & Sparkler -->
     <div id="cracker-dock">
-      <button class="dock-btn active" data-type="bijili"><span>🧨</span> Red Bijili</button>
-      <button class="dock-btn" data-type="flowerpot"><span>🌺</span> Anar (Flowerpot)</button>
-      <button class="dock-btn" data-type="bomb"><span>💣</span> Atom Bomb</button>
+      <button class="dock-btn active" data-type="skyshot"><span>🚀</span> Sky Shot (Fireworks)</button>
+      <button class="dock-btn" data-type="bijili"><span>🧨</span> Red Bijili Cracker</button>
+      <button class="dock-btn" data-type="sparkler"><span>✨</span> Sparkler</button>
     </div>
 
     <canvas id="mainCanvas"></canvas>
@@ -189,7 +194,7 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Web Audio Synthesizer
+    // Web Audio Synthesizer (Whistle, Loud Boom, Bijili Snap & Crackle)
     let audioCtx = null;
     let soundEnabled = true;
 
@@ -206,8 +211,55 @@
       if (!soundEnabled || !audioCtx) return;
       const now = audioCtx.currentTime;
 
-      if (type === 'snap') {
-        // Crisp Bijili Snap
+      if (type === 'whistle') {
+        // High-pitched screeching rocket ascent
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(450, now);
+        osc.frequency.exponentialRampToValueAtTime(1800, now + 0.6);
+        gain.gain.setValueAtTime(0.09, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+        osc.start(now);
+        osc.stop(now + 0.6);
+      }
+      else if (type === 'skyboom') {
+        // Huge Thunderous Aerial Explosion
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.exponentialRampToValueAtTime(28, now + 0.55);
+        gain.gain.setValueAtTime(0.95, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.55);
+        osc.start(now);
+        osc.stop(now + 0.55);
+
+        // Crackling air burst noise
+        const bufferSize = audioCtx.sampleRate * 0.45;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1200, now);
+        filter.frequency.exponentialRampToValueAtTime(120, now + 0.45);
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.65, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
+        noise.start(now);
+      }
+      else if (type === 'snap') {
+        // Sharp Bijili Crack
         const snapBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.08, audioCtx.sampleRate);
         const data = snapBuf.getChannelData(0);
         for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
@@ -215,7 +267,7 @@
         source.buffer = snapBuf;
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'highpass';
-        filter.frequency.setValueAtTime(2000, now);
+        filter.frequency.setValueAtTime(2200, now);
         const gain = audioCtx.createGain();
         gain.gain.setValueAtTime(0.8, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.07);
@@ -223,20 +275,6 @@
         filter.connect(gain);
         gain.connect(audioCtx.destination);
         source.start(now);
-      }
-      else if (type === 'boom') {
-        // Deep sub-bass explosion
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(170, now);
-        osc.frequency.exponentialRampToValueAtTime(28, now + 0.5);
-        gain.gain.setValueAtTime(0.9, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-        osc.start(now);
-        osc.stop(now + 0.5);
       }
       else if (type === 'hiss') {
         const bufferSize = audioCtx.sampleRate * 0.25;
@@ -276,35 +314,46 @@
     }
 
     // Entities Arrays
-    let groundCrackers = [];
+    let skyShots = [];
+    let groundBijilis = [];
     let particles = [];
     let paperShreds = [];
     let scorchMarks = [];
 
     // Background Stars
     const stars = [];
-    for (let i = 0; i < 75; i++) {
+    for (let i = 0; i < 90; i++) {
       stars.push({
         x: Math.random() * window.innerWidth,
-        y: Math.random() * (window.innerHeight * 0.55),
+        y: Math.random() * (window.innerHeight * 0.65),
         size: Math.random() * 1.8 + 0.5,
         alpha: Math.random() * 0.6 + 0.3
       });
     }
 
+    // Color Palettes for Sky Shot
+    const colorThemes = [
+      ['#ff0055', '#ff9900', '#ffd700'], // Fire Red & Gold
+      ['#00ffff', '#00ff66', '#ffffff'], // Neon Cyan & Emerald
+      ['#c084fc', '#ff00aa', '#00f0ff'], // Cosmic Purple & Magenta
+      ['#ffe600', '#ffffff', '#ff3300'], // Golden Glitter Rain
+      ['#00ff99', '#38bdf8', '#a855f7']  // Aurora Sky
+    ];
+
     // Particle Class
     class Particle {
-      constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.08, friction = 0.97) {
+      constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.07, friction = 0.97, spark = true) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.vx = vx;
         this.vy = vy;
         this.alpha = life;
-        this.decay = Math.random() * 0.025 + 0.015;
+        this.decay = Math.random() * 0.02 + 0.012;
         this.size = size;
         this.gravity = gravity;
         this.friction = friction;
+        this.spark = spark;
       }
       update() {
         this.vx *= this.friction;
@@ -321,7 +370,7 @@
         ctx.globalAlpha = Math.max(0, this.alpha);
         ctx.fillStyle = this.color;
         ctx.shadowColor = this.color;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = this.spark ? 14 : 6;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -330,12 +379,100 @@
     }
 
     // ==========================================
-    // 1. BIJILI CRACKER
+    // 1. SKY SHOT (MAGNIFICENT AERIAL FIREWORK)
+    // ==========================================
+    class SkyShot {
+      constructor(targetX, targetY) {
+        this.targetX = targetX;
+        this.targetY = Math.min(targetY, canvas.height * 0.55);
+        this.x = targetX + (Math.random() * 40 - 20);
+        this.y = canvas.height * 0.72; // Launch from ground mortar
+        const dx = this.targetX - this.x;
+        const dy = this.targetY - this.y;
+        const dist = Math.hypot(dx, dy);
+        const speed = Math.random() * 3 + 14;
+        this.vx = (dx / dist) * speed;
+        this.vy = (dy / dist) * speed;
+        this.palette = colorThemes[Math.floor(Math.random() * colorThemes.length)];
+        playSound('whistle');
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Glowing Golden Fire Trail
+        for (let i = 0; i < 3; i++) {
+          particles.push(new Particle(
+            this.x, this.y, '#ffd700',
+            (Math.random() - 0.5) * 2, Math.random() * 2 + 1,
+            0.6, 2.5, 0.02, 0.96
+          ));
+        }
+
+        // Burst when reached apex
+        if (this.vy >= 0 || this.y <= this.targetY) {
+          this.burst();
+          return false;
+        }
+        return true;
+      }
+      burst() {
+        playSound('skyboom');
+        screenFlash(0.4);
+
+        const count = Math.floor(Math.random() * 40 + 90);
+        const pattern = Math.random();
+
+        for (let i = 0; i < count; i++) {
+          let angle, speed;
+          if (pattern > 0.4) {
+            // Spherical Peony Burst
+            angle = Math.random() * Math.PI * 2;
+            speed = Math.random() * 9 + 2;
+          } else {
+            // Double Ring Burst
+            angle = (i / count) * Math.PI * 2;
+            speed = (i % 2 === 0 ? 7 : 4.5) + Math.random() * 1.5;
+          }
+
+          const color = this.palette[Math.floor(Math.random() * this.palette.length)];
+          particles.push(new Particle(
+            this.x, this.y, color,
+            Math.cos(angle) * speed, Math.sin(angle) * speed,
+            1, Math.random() * 3.5 + 2, 0.065, 0.96, true
+          ));
+        }
+
+        // Extra cascading golden willow rain sparks
+        for (let i = 0; i < 25; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 4 + 1;
+          particles.push(new Particle(
+            this.x, this.y, '#ffffff',
+            Math.cos(angle) * speed, Math.sin(angle) * speed,
+            1.2, 2, 0.12, 0.98, true
+          ));
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = '#00ffff';
+        ctx.shadowBlur = 15;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // ==========================================
+    // 2. RED BIJILI CRACKER (ON GROUND)
     // ==========================================
     class BijiliCracker {
       constructor(x, y) {
         this.x = x;
-        this.y = Math.max(canvas.height * 0.62, Math.min(canvas.height - 90, y));
+        this.y = Math.max(canvas.height * 0.65, Math.min(canvas.height - 85, y));
         this.fuse = 45;
         this.state = 'burning';
         playSound('hiss');
@@ -343,7 +480,6 @@
       update() {
         if (this.state === 'burning') {
           this.fuse--;
-          // Fuse spark
           for (let i = 0; i < 2; i++) {
             particles.push(new Particle(
               this.x, this.y - 48 + (45 - this.fuse) * 0.8, '#ffaa00',
@@ -361,8 +497,7 @@
       }
       explode() {
         playSound('snap');
-        playSound('boom');
-        screenFlash(0.55);
+        screenFlash(0.5);
         scorchMarks.push({ x: this.x, y: this.y + 10, radius: 45 });
 
         // Red & Gold Paper Shreds flying out
@@ -382,8 +517,8 @@
           });
         }
 
-        // Sparks
-        for (let i = 0; i < 60; i++) {
+        // Fiery sparks
+        for (let i = 0; i < 55; i++) {
           const angle = Math.random() * Math.PI * 2;
           const speed = Math.random() * 14 + 2;
           particles.push(new Particle(
@@ -438,96 +573,8 @@
       }
     }
 
-    // ==========================================
-    // 2. FLOWERPOT / ANAR
-    // ==========================================
-    class Flowerpot {
-      constructor(x, y) {
-        this.x = x;
-        this.y = Math.max(canvas.height * 0.62, Math.min(canvas.height - 80, y));
-        this.duration = 190;
-        this.timer = 0;
-        playSound('hiss');
-      }
-      update() {
-        this.timer++;
-        const intensity = Math.sin((this.timer / this.duration) * Math.PI);
-        const count = Math.floor(intensity * 16 + 4);
-
-        for (let i = 0; i < count; i++) {
-          const speed = Math.random() * 13 + 6;
-          const spread = (Math.random() - 0.5) * 0.55;
-          particles.push(new Particle(
-            this.x + (Math.random() * 8 - 4), this.y - 18, Math.random() > 0.3 ? '#ffd700' : '#ffffff',
-            Math.sin(spread) * speed, -Math.cos(spread) * speed,
-            0.9, Math.random() * 3 + 1.5, 0.18, 0.97
-          ));
-        }
-        if (Math.random() < 0.22) playSound('crackle');
-        return this.timer < this.duration;
-      }
-      draw() {
-        ctx.save();
-        // Cone
-        ctx.fillStyle = '#e63946';
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y - 18);
-        ctx.lineTo(this.x - 18, this.y + 12);
-        ctx.lineTo(this.x + 18, this.y + 12);
-        ctx.closePath();
-        ctx.fill();
-        // Gold Base
-        ctx.fillStyle = '#ffd700';
-        ctx.fillRect(this.x - 18, this.y + 8, 36, 5);
-        ctx.restore();
-      }
-    }
-
-    // ==========================================
-    // 3. ATOM BOMB
-    // ==========================================
-    class AtomBomb {
-      constructor(x, y) {
-        this.x = x;
-        this.y = Math.max(canvas.height * 0.62, Math.min(canvas.height - 80, y));
-        this.fuse = 55;
-        playSound('hiss');
-      }
-      update() {
-        this.fuse--;
-        particles.push(new Particle(
-          this.x, this.y - 20, '#ff9900',
-          (Math.random() - 0.5) * 2, -Math.random() * 2, 0.4, 2
-        ));
-        if (this.fuse <= 0) {
-          playSound('boom');
-          playSound('snap');
-          screenFlash(0.75);
-          scorchMarks.push({ x: this.x, y: this.y + 10, radius: 70 });
-          for (let i = 0; i < 120; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 15 + 3;
-            particles.push(new Particle(
-              this.x, this.y, ['#ff0055', '#ffd700', '#ff9900', '#00ffff'][Math.floor(Math.random() * 4)],
-              Math.cos(angle) * speed, Math.sin(angle) * speed - 2, 1.2, Math.random() * 4 + 2, 0.1
-            ));
-          }
-          return false;
-        }
-        return true;
-      }
-      draw() {
-        ctx.save();
-        ctx.fillStyle = '#0284c7';
-        ctx.fillRect(this.x - 16, this.y - 16, 32, 28);
-        ctx.fillStyle = '#ff0055';
-        ctx.fillRect(this.x - 10, this.y - 12, 20, 6);
-        ctx.restore();
-      }
-    }
-
-    // Cracker Selection State
-    let currentType = 'bijili';
+    // Active Selection State
+    let currentType = 'skyshot';
     const dockButtons = document.querySelectorAll('.dock-btn');
     dockButtons.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -540,35 +587,79 @@
     });
 
     function updateHint() {
-      if (currentType === 'bijili') hintEl.innerText = '🧨 Click ground to place & light a Red Bijili cracker!';
-      else if (currentType === 'flowerpot') hintEl.innerText = '🌺 Click ground to light a glowing Anar Flowerpot!';
-      else if (currentType === 'bomb') hintEl.innerText = '💣 Click ground to place a heavy Atom Bomb!';
+      if (currentType === 'skyshot') hintEl.innerText = '🚀 Click anywhere in the sky to launch colorful Sky Shots!';
+      else if (currentType === 'bijili') hintEl.innerText = '🧨 Click ground to place & light a Red Bijili cracker!';
+      else if (currentType === 'sparkler') hintEl.innerText = '✨ Drag mouse or touch to draw sparkling golden trails!';
     }
     updateHint();
 
-    // Trigger on Ground Click
+    // Canvas Click Interactions
     canvas.addEventListener('click', (e) => {
       initAudio();
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      if (currentType === 'bijili') {
-        groundCrackers.push(new BijiliCracker(x, y));
-      } else if (currentType === 'flowerpot') {
-        groundCrackers.push(new Flowerpot(x, y));
-      } else if (currentType === 'bomb') {
-        groundCrackers.push(new AtomBomb(x, y));
+      if (currentType === 'skyshot') {
+        skyShots.push(new SkyShot(x, y));
+      } else if (currentType === 'bijili') {
+        groundBijilis.push(new BijiliCracker(x, y));
+      } else if (currentType === 'sparkler') {
+        makeSparkler(x, y);
       }
     });
 
-    // Clear Button
-    document.getElementById('clear-btn').addEventListener('click', () => {
+    // Sparkler Dragging
+    let isDragging = false;
+    canvas.addEventListener('mousedown', () => { isDragging = true; });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+    canvas.addEventListener('mousemove', (e) => {
+      if (isDragging && currentType === 'sparkler') {
+        makeSparkler(e.clientX, e.clientY);
+      }
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      if (currentType === 'sparkler') {
+        const touch = e.touches[0];
+        makeSparkler(touch.clientX, touch.clientY);
+      }
+    }, { passive: true });
+
+    function makeSparkler(x, y) {
       initAudio();
-      groundCrackers = [];
-      paperShreds = [];
-      scorchMarks = [];
-      particles = [];
+      for (let i = 0; i < 7; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 4 + 1;
+        particles.push(new Particle(
+          x, y, '#ffd700',
+          Math.cos(angle) * speed, Math.sin(angle) * speed,
+          0.6, Math.random() * 2.5 + 1, 0.05
+        ));
+      }
+      if (Math.random() < 0.25) playSound('crackle');
+    }
+
+    // Auto Fireworks Show Toggle
+    let autoShow = false;
+    let autoInterval = null;
+    const autoBtn = document.getElementById('auto-btn');
+    autoBtn.addEventListener('click', () => {
+      initAudio();
+      autoShow = !autoShow;
+      if (autoShow) {
+        autoBtn.innerText = '🎆 Auto Sky Shots: ON';
+        autoBtn.classList.add('active');
+        autoInterval = setInterval(() => {
+          const rx = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
+          const ry = Math.random() * (canvas.height * 0.4) + canvas.height * 0.1;
+          skyShots.push(new SkyShot(rx, ry));
+        }, 750);
+      } else {
+        autoBtn.innerText = '🎆 Auto Sky Shots: OFF';
+        autoBtn.classList.remove('active');
+        clearInterval(autoInterval);
+      }
     });
 
     // Sound Button
@@ -582,7 +673,7 @@
     // Main Render Loop
     function loop() {
       // Semi-clear for particle trails
-      ctx.fillStyle = 'rgba(3, 4, 11, 0.25)';
+      ctx.fillStyle = 'rgba(2, 3, 10, 0.25)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Sky Stars
@@ -593,16 +684,16 @@
       }
       ctx.globalAlpha = 1;
 
-      // PROMINENT VISIBLE GROUND / TERRACE (Starts at 58% height)
-      const groundY = canvas.height * 0.58;
+      // Ground Surface
+      const groundY = canvas.height * 0.70;
       const gGrad = ctx.createLinearGradient(0, groundY, 0, canvas.height);
-      gGrad.addColorStop(0, '#1c1230');
-      gGrad.addColorStop(0.3, '#140c24');
-      gGrad.addColorStop(1, '#090512');
+      gGrad.addColorStop(0, '#160e28');
+      gGrad.addColorStop(0.3, '#10091e');
+      gGrad.addColorStop(1, '#07030e');
       ctx.fillStyle = gGrad;
       ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
 
-      // Glowing Ground Border Line
+      // Glowing Ground Border
       ctx.strokeStyle = '#ff8800';
       ctx.lineWidth = 2.5;
       ctx.shadowColor = '#ff8800';
@@ -613,17 +704,7 @@
       ctx.stroke();
       ctx.shadowBlur = 0;
 
-      // Ground Perspective Grid Tiles
-      ctx.strokeStyle = '#271745';
-      ctx.lineWidth = 1.5;
-      for (let x = -100; x < canvas.width + 300; x += 110) {
-        ctx.beginPath();
-        ctx.moveTo(x, groundY);
-        ctx.lineTo(x + (x - canvas.width / 2) * 1.2, canvas.height);
-        ctx.stroke();
-      }
-
-      // Draw Burnt Scorch Marks on Ground
+      // Draw Scorch Marks
       for (let sm of scorchMarks) {
         ctx.save();
         ctx.fillStyle = 'rgba(0,0,0,0.65)';
@@ -633,7 +714,7 @@
         ctx.restore();
       }
 
-      // Paper Shreds Update & Draw
+      // Paper Shreds
       for (let i = paperShreds.length - 1; i >= 0; i--) {
         const p = paperShreds[i];
         p.x += p.vx;
@@ -663,16 +744,25 @@
         ctx.restore();
       }
 
-      // Ground Crackers (Bijili, Anar, Bomb)
-      for (let i = groundCrackers.length - 1; i >= 0; i--) {
-        if (!groundCrackers[i].update()) {
-          groundCrackers.splice(i, 1);
+      // Ground Bijilis
+      for (let i = groundBijilis.length - 1; i >= 0; i--) {
+        if (!groundBijilis[i].update()) {
+          groundBijilis.splice(i, 1);
         } else {
-          groundCrackers[i].draw();
+          groundBijilis[i].draw();
         }
       }
 
-      // Sparks & Particles
+      // Sky Shots
+      for (let i = skyShots.length - 1; i >= 0; i--) {
+        if (!skyShots[i].update()) {
+          skyShots.splice(i, 1);
+        } else {
+          skyShots[i].draw();
+        }
+      }
+
+      // Sparks & Burst Particles
       for (let i = particles.length - 1; i >= 0; i--) {
         if (!particles[i].update()) {
           particles.splice(i, 1);
