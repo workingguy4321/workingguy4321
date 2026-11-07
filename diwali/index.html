@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>🪔 1-MINUTE GRAND DIWALI SKY SHOT SHOW 🎆</title>
+  <title>🪔 30-SECOND GRAND DIWALI SKY SHOT SHOW 🎆</title>
   <style>
     * {
       box-sizing: border-box;
@@ -199,12 +199,12 @@
 
   <!-- Start Show Overlay -->
   <div id="start-overlay">
-    <h2>🎆 1-MINUTE DIWALI SKY SHOT SHOW 🪔</h2>
+    <h2>🎆 30-SECOND DIWALI SKY SHOT SHOW 🪔</h2>
     <p>
-      Get ready for a 60-second non-stop continuous Sky Shot fireworks show! 🚀<br>
-      Watch out for <b>Heart-shaped explosions ❤️</b>, and wait for the <b>Grand Finale: Two final sky shots revealing "HAPPY DIWALI"!</b>
+      Enjoy a 30-second continuous, slow &amp; majestic Sky Shot fireworks show! 🚀<br>
+      Watch the wide sky fill with slow blooming bursts, <b>glowing Heart shapes ❤️</b>, and the <b>Grand Finale: Two final sky shots revealing "HAPPY DIWALI"!</b>
     </p>
-    <button class="play-btn" id="start-show-btn">🚀 IGNITE 1-MINUTE SHOW 🪔</button>
+    <button class="play-btn" id="start-show-btn">🚀 IGNITE 30-SECOND SHOW 🪔</button>
   </div>
 
   <!-- Final Glowing Greeting -->
@@ -215,7 +215,7 @@
 
   <div id="stage-container">
     <div id="top-hud">
-      <div id="status-bar">⏱️ Show Time: 60s Remaining</div>
+      <div id="status-bar">⏱️ Show Time: 30s Remaining</div>
     </div>
 
     <div id="top-controls">
@@ -264,29 +264,29 @@
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(400, now);
-        osc.frequency.exponentialRampToValueAtTime(1700, now + 0.6);
+        osc.frequency.setValueAtTime(320, now);
+        osc.frequency.exponentialRampToValueAtTime(1650, now + 1.0);
         gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.0);
         osc.start(now);
-        osc.stop(now + 0.6);
+        osc.stop(now + 1.0);
       }
       else if (type === 'boom') {
-        // Sub-bass aerial blast
+        // Deep sub-bass aerial blast with slow rumble
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(160, now);
-        osc.frequency.exponentialRampToValueAtTime(28, now + 0.55);
+        osc.frequency.exponentialRampToValueAtTime(26, now + 0.75);
         gain.gain.setValueAtTime(0.9, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.55);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.75);
         osc.start(now);
-        osc.stop(now + 0.55);
+        osc.stop(now + 0.75);
 
         // Noise crackle
-        const bufferSize = audioCtx.sampleRate * 0.45;
+        const bufferSize = audioCtx.sampleRate * 0.55;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
@@ -295,10 +295,10 @@
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(1200, now);
-        filter.frequency.exponentialRampToValueAtTime(120, now + 0.45);
+        filter.frequency.exponentialRampToValueAtTime(110, now + 0.55);
         const noiseGain = audioCtx.createGain();
         noiseGain.gain.setValueAtTime(0.65, now);
-        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.55);
         noise.connect(filter);
         filter.connect(noiseGain);
         noiseGain.connect(audioCtx.destination);
@@ -350,16 +350,16 @@
       });
     }
 
-    // Standard Particle Class
+    // Standard Particle Class (Graceful slow bloom & floating physics)
     class Particle {
-      constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.065, friction = 0.97) {
+      constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.038, friction = 0.978, decay = null) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.vx = vx;
         this.vy = vy;
         this.alpha = life;
-        this.decay = Math.random() * 0.018 + 0.012;
+        this.decay = decay || (Math.random() * 0.009 + 0.007);
         this.size = size;
         this.gravity = gravity;
         this.friction = friction;
@@ -371,7 +371,7 @@
         this.x += this.vx;
         this.y += this.vy;
         this.alpha -= this.decay;
-        this.size = Math.max(0.2, this.size * 0.98);
+        this.size = Math.max(0.2, this.size * 0.985);
         return this.alpha > 0;
       }
       draw() {
@@ -390,24 +390,24 @@
     // Firework Letter Text Particle
     class TextFireworkParticle {
       constructor(targetX, targetY, color) {
-        this.x = targetX + (Math.random() - 0.5) * 80;
-        this.y = targetY + (Math.random() - 0.5) * 80;
+        this.x = targetX + (Math.random() - 0.5) * 60;
+        this.y = targetY + (Math.random() - 0.5) * 60;
         this.targetX = targetX;
         this.targetY = targetY;
         this.color = color;
         this.alpha = 1;
-        this.size = Math.random() * 3 + 2.5;
-        this.decay = 0.003; // lasts long to read the greeting
+        this.size = Math.random() * 3.5 + 2.5;
+        this.decay = 0.0028; // slow drift so greeting stays beautifully readable
         this.flicker = Math.random() * Math.PI;
       }
       update() {
-        // Magnetically lock to target position
-        this.x += (this.targetX - this.x) * 0.08;
-        this.y += (this.targetY - this.y) * 0.08;
-        this.y += 0.08; // slow drift downwards
-        this.targetY += 0.08;
+        // Magnetically lock smoothly to target letter coordinates
+        this.x += (this.targetX - this.x) * 0.06;
+        this.y += (this.targetY - this.y) * 0.06;
+        this.y += 0.04; // very gentle downward drift
+        this.targetY += 0.04;
         this.alpha -= this.decay;
-        this.flicker += 0.15;
+        this.flicker += 0.12;
         return this.alpha > 0;
       }
       draw() {
@@ -416,7 +416,7 @@
         ctx.globalAlpha = Math.max(0, fAlpha);
         ctx.fillStyle = this.color;
         ctx.shadowColor = this.color;
-        ctx.shadowBlur = 14;
+        ctx.shadowBlur = 15;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -424,21 +424,24 @@
       }
     }
 
-    // Generate Firework Text Particles for "HAPPY DIWALI"
+    // Generate Firework Text Particles for "HAPPY DIWALI" across wide canvas
     function createHappyDiwaliParticles(centerX, centerY) {
       const textCanvas = document.createElement('canvas');
-      textCanvas.width = 750;
-      textCanvas.height = 140;
+      const textWidth = Math.min(canvas.width * 0.90, 880);
+      const fontSize = Math.max(32, Math.floor(textWidth / 10.5));
+      textCanvas.width = textWidth;
+      textCanvas.height = fontSize * 2.4;
       const tCtx = textCanvas.getContext('2d');
 
       tCtx.fillStyle = '#ffffff';
-      tCtx.font = '900 48px "Segoe UI", sans-serif';
+      tCtx.font = `900 ${fontSize}px "Segoe UI", sans-serif`;
       tCtx.textAlign = 'center';
-      tCtx.fillText('HAPPY DIWALI', textCanvas.width / 2, 75);
+      tCtx.textBaseline = 'middle';
+      tCtx.fillText('HAPPY DIWALI', textCanvas.width / 2, textCanvas.height / 2);
 
       const imgData = tCtx.getImageData(0, 0, textCanvas.width, textCanvas.height);
       const data = imgData.data;
-      const gap = 6; // sampling density
+      const gap = Math.max(4, Math.floor(fontSize / 8.5)); // density
 
       for (let y = 0; y < textCanvas.height; y += gap) {
         for (let x = 0; x < textCanvas.width; x += gap) {
@@ -453,17 +456,19 @@
       }
     }
 
-    // Sky Shot Class
+    // Sky Shot Class (Widened Launch & Slow Ascending Rocket)
     class SkyShot {
       constructor(targetX, targetY, isHeart = false, isFinale = false) {
         this.targetX = targetX;
         this.targetY = targetY;
-        this.x = targetX + (Math.random() * 30 - 15);
+        // Widen launch origin along the entire ground horizon
+        this.x = isFinale ? targetX : (canvas.width * 0.08 + Math.random() * (canvas.width * 0.84));
         this.y = canvas.height * 0.85;
         const dx = this.targetX - this.x;
         const dy = this.targetY - this.y;
         const dist = Math.hypot(dx, dy);
-        const speed = isFinale ? 14 : Math.random() * 3 + 13;
+        // Slower majestic rocket speed
+        const speed = isFinale ? 6.5 : (Math.random() * 2 + 5.5);
         this.vx = (dx / dist) * speed;
         this.vy = (dy / dist) * speed;
         this.isHeart = isHeart;
@@ -475,12 +480,12 @@
         this.x += this.vx;
         this.y += this.vy;
 
-        // Glowing fire tracer
+        // Glowing fire tracer tail
         for (let i = 0; i < 2; i++) {
           particles.push(new Particle(
             this.x, this.y, '#ffd700',
-            (Math.random() - 0.5) * 2, Math.random() * 2 + 1,
-            0.5, 2.5, 0.02, 0.96
+            (Math.random() - 0.5) * 1.5, Math.random() * 1.8 + 0.8,
+            0.6, 2.5, 0.015, 0.97, 0.015
           ));
         }
 
@@ -495,18 +500,18 @@
           playSound('finaleBoom');
           screenFlash(0.7);
 
-          // Form "HAPPY DIWALI" text in the sky
+          // Form "HAPPY DIWALI" text across the sky
           createHappyDiwaliParticles(canvas.width / 2, canvas.height * 0.28);
           finalGreeting.classList.add('show');
 
           // Massive surrounding golden glitter crown
-          for (let i = 0; i < 140; i++) {
+          for (let i = 0; i < 150; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 12 + 2;
+            const speed = Math.random() * 9 + 2;
             particles.push(new Particle(
               this.x, this.y, ['#ffd700', '#ffffff', '#ff007f', '#00ffff'][i % 4],
               Math.cos(angle) * speed, Math.sin(angle) * speed,
-              1.3, Math.random() * 4 + 2, 0.05, 0.96
+              1.4, Math.random() * 4 + 2, 0.035, 0.98, 0.007
             ));
           }
           return;
@@ -516,41 +521,44 @@
         screenFlash(0.35);
 
         // ==========================================
-        // HEART SHAPED BURST ❤️
+        // WIDENED HEART SHAPED BURST ❤️
         // ==========================================
         if (this.isHeart) {
-          for (let t = 0; t < Math.PI * 2; t += 0.1) {
+          const scale = Math.min(canvas.width, canvas.height) * 0.018;
+          for (let t = 0; t < Math.PI * 2; t += 0.09) {
             // Parametric Heart Curve Formula
-            const hx = 16 * Math.pow(Math.sin(t), 3);
-            const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-            const speed = 0.38;
+            const hx = 16 * Math.pow(Math.sin(t), 3) * scale;
+            const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * scale;
+            const speed = 0.055;
             particles.push(new Particle(
               this.x, this.y, '#ff007f',
-              hx * speed, hy * speed, 1.3, 3.5, 0.015, 0.97
+              hx * speed, hy * speed, 1.4, 3.8, 0.012, 0.98, 0.0065
             ));
           }
           // Inner glowing heart core
-          for (let i = 0; i < 20; i++) {
+          for (let i = 0; i < 25; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 3 + 1;
+            const speed = Math.random() * 2.5 + 0.8;
             particles.push(new Particle(
               this.x, this.y, '#ffffff',
-              Math.cos(angle) * speed, Math.sin(angle) * speed, 1, 2.5, 0.02, 0.96
+              Math.cos(angle) * speed, Math.sin(angle) * speed, 1.1, 2.8, 0.018, 0.97, 0.009
             ));
           }
           return;
         }
 
-        // Standard Spherical / Ring Burst
-        const count = Math.floor(Math.random() * 40 + 85);
+        // ==========================================
+        // WIDENED SLOW-BLOOM SPHERICAL BURST 🎆
+        // ==========================================
+        const count = Math.floor(Math.random() * 35 + 95);
         for (let i = 0; i < count; i++) {
           const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 8.5 + 2;
+          const speed = Math.random() * 6.5 + 1.8;
           const color = this.palette[i % this.palette.length];
           particles.push(new Particle(
             this.x, this.y, color,
             Math.cos(angle) * speed, Math.sin(angle) * speed,
-            1, Math.random() * 3.5 + 2, 0.06, 0.96
+            1.2, Math.random() * 3.5 + 2, 0.035, 0.978, 0.008
           ));
         }
       }
@@ -567,10 +575,10 @@
     }
 
     // ========================================================
-    // 1-MINUTE TIMELINE SHOW ORCHESTRATION ENGINE
+    // 30-SECOND TIMELINE SHOW ORCHESTRATION ENGINE
     // ========================================================
     let showActive = false;
-    let showTime = 60; // 60 seconds show
+    let showTime = 30; // 30 seconds show
     let showTimerInterval = null;
     let rocketLaunchInterval = null;
     let finaleLaunched = false;
@@ -580,7 +588,7 @@
       startOverlay.style.display = 'none';
       finalGreeting.classList.remove('show');
       showActive = true;
-      showTime = 60;
+      showTime = 30;
       finaleLaunched = false;
       skyShots = [];
       particles = [];
@@ -589,12 +597,12 @@
       clearInterval(showTimerInterval);
       clearInterval(rocketLaunchInterval);
 
-      // Countdown Timer
+      // Countdown Timer (30 Seconds)
       showTimerInterval = setInterval(() => {
         showTime--;
-        if (showTime > 8) {
+        if (showTime > 6) {
           statusBar.innerText = `⏱️ Show Time: ${showTime}s Remaining (Watch for Hearts ❤️)`;
-        } else if (showTime > 3) {
+        } else if (showTime > 2) {
           statusBar.innerText = `🚀 GRAND FINALE INCOMING: Final 2 Sky Shots preparing...`;
         } else if (showTime > 0) {
           statusBar.innerText = `🎆 THE FINAL BLAST: HAPPY DIWALI! 🪔`;
@@ -603,24 +611,25 @@
           clearInterval(showTimerInterval);
         }
 
-        // Trigger the Last 2 Sky Shots at 6 seconds remaining
-        if (showTime === 6 && !finaleLaunched) {
+        // Trigger the Last 2 Sky Shots at 5 seconds remaining
+        if (showTime === 5 && !finaleLaunched) {
           launchGrandFinale();
         }
       }, 1000);
 
-      // Rapid Continuous Rocket Launcher (Launches every 600ms)
+      // Spaced Out, Relaxed Continuous Rocket Launcher (Launches every 1350ms)
       rocketLaunchInterval = setInterval(() => {
         // Pause regular rockets near the end to spotlight the last 2 sky shots
-        if (showTime <= 7) return;
+        if (showTime <= 6) return;
 
-        const targetX = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
-        const targetY = Math.random() * (canvas.height * 0.42) + canvas.height * 0.1;
+        // Widened target coordinates across the expansive night sky
+        const targetX = canvas.width * 0.06 + Math.random() * (canvas.width * 0.88);
+        const targetY = canvas.height * 0.08 + Math.random() * (canvas.height * 0.44);
 
-        // Every 4th rocket is a glowing HEART shape!
-        const isHeart = Math.random() < 0.28;
+        // Frequent glowing HEART shape bursts!
+        const isHeart = Math.random() < 0.32;
         skyShots.push(new SkyShot(targetX, targetY, isHeart));
-      }, 650);
+      }, 1350);
     }
 
     // THE GRAND FINALE: TWO FINAL SKY SHOTS REVEALING "HAPPY DIWALI"
@@ -628,15 +637,15 @@
       finaleLaunched = true;
       clearInterval(rocketLaunchInterval);
 
-      // Shot 1 (Left Center)
+      // Shot 1 (Left Side - Widened)
       setTimeout(() => {
-        skyShots.push(new SkyShot(canvas.width * 0.38, canvas.height * 0.26, false, true));
+        skyShots.push(new SkyShot(canvas.width * 0.28, canvas.height * 0.25, false, true));
       }, 200);
 
-      // Shot 2 (Right Center)
+      // Shot 2 (Right Side - Widened)
       setTimeout(() => {
-        skyShots.push(new SkyShot(canvas.width * 0.62, canvas.height * 0.26, false, true));
-      }, 800);
+        skyShots.push(new SkyShot(canvas.width * 0.72, canvas.height * 0.25, false, true));
+      }, 900);
     }
 
     // User can also click anytime in the sky to add their own rockets!
