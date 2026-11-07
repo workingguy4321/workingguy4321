@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>🪔 DIWALI CRACKERS ARCADE // All Crackers Simulator ✨</title>
+  <title>🪔 DIWALI CRACKERS // Bijili, Anar & Atom Bomb ✨</title>
   <style>
     * {
       box-sizing: border-box;
@@ -34,12 +34,12 @@
       position: absolute;
       top: 0;
       left: 0;
-      cursor: crosshair;
+      cursor: pointer;
     }
     /* Header HUD */
     #top-hud {
       position: absolute;
-      top: 12px;
+      top: 15px;
       left: 0;
       width: 100%;
       text-align: center;
@@ -47,7 +47,7 @@
       z-index: 20;
     }
     h1 {
-      font-size: clamp(20px, 3.8vw, 36px);
+      font-size: clamp(22px, 4vw, 38px);
       font-weight: 900;
       letter-spacing: 2px;
       background: linear-gradient(135deg, #ffe066, #ff8c00, #ff0055, #ffd700);
@@ -56,17 +56,17 @@
       text-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
     }
     #hint-bar {
-      font-size: clamp(12px, 1.8vw, 15px);
+      font-size: clamp(13px, 1.8vw, 16px);
       color: #fff2a3;
-      margin-top: 4px;
+      margin-top: 6px;
       text-shadow: 0 0 10px rgba(0,0,0,0.9);
-      background: rgba(10, 5, 20, 0.6);
+      background: rgba(10, 5, 20, 0.65);
       display: inline-block;
-      padding: 4px 18px;
+      padding: 5px 22px;
       border-radius: 20px;
-      border: 1px solid rgba(255, 153, 0, 0.3);
+      border: 1px solid rgba(255, 153, 0, 0.4);
     }
-    /* Top Buttons */
+    /* Top Controls */
     #top-controls {
       position: absolute;
       top: 15px;
@@ -88,46 +88,44 @@
       transition: all 0.2s ease;
       backdrop-filter: blur(8px);
     }
-    .hud-btn:hover, .hud-btn.active {
+    .hud-btn:hover {
       background: linear-gradient(135deg, #ff9900, #ff0055);
       color: #ffffff;
       transform: scale(1.05);
     }
-    /* Cracker Dock */
+    /* Cracker Dock (Only 3 Crackers Now) */
     #cracker-dock {
       position: absolute;
-      bottom: 18px;
+      bottom: 22px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 30;
-      background: rgba(12, 6, 28, 0.92);
+      background: rgba(12, 6, 28, 0.94);
       border: 2px solid #ff9900;
       border-radius: 50px;
-      padding: 8px 16px;
+      padding: 10px 20px;
       display: flex;
-      gap: 10px;
-      box-shadow: 0 0 30px rgba(255, 153, 0, 0.4);
+      gap: 14px;
+      box-shadow: 0 0 35px rgba(255, 153, 0, 0.45);
       backdrop-filter: blur(12px);
-      max-width: 96vw;
-      overflow-x: auto;
     }
     .dock-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 153, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 153, 0, 0.35);
       color: #ffffff;
-      padding: 8px 14px;
-      border-radius: 25px;
+      padding: 10px 20px;
+      border-radius: 30px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 700;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
       white-space: nowrap;
       transition: all 0.2s ease;
     }
     .dock-btn span {
-      font-size: 18px;
+      font-size: 20px;
     }
     .dock-btn:hover {
       background: rgba(255, 153, 0, 0.25);
@@ -136,8 +134,8 @@
     .dock-btn.active {
       background: linear-gradient(135deg, #ff8c00, #ff0055);
       border-color: #ffe066;
-      box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
-      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 0 25px rgba(255, 140, 0, 0.9);
+      transform: translateY(-3px) scale(1.06);
     }
     #flash {
       position: absolute;
@@ -160,7 +158,7 @@
   <div id="stage-container">
     <div id="top-hud">
       <h1>🪔 HAPPY DIWALI 🪔</h1>
-      <div id="hint-bar">🧨 Click on the ground or sky to burst crackers!</div>
+      <div id="hint-bar">🧨 Click on the ground to place & light a Red Bijili cracker!</div>
     </div>
 
     <div id="top-controls">
@@ -168,14 +166,11 @@
       <button class="hud-btn" id="sound-btn">🔊 Sound: ON</button>
     </div>
 
-    <!-- Cracker Selector Dock -->
+    <!-- Only Bijili, Anar & Atom Bomb -->
     <div id="cracker-dock">
       <button class="dock-btn active" data-type="bijili"><span>🧨</span> Red Bijili</button>
       <button class="dock-btn" data-type="flowerpot"><span>🌺</span> Anar (Flowerpot)</button>
-      <button class="dock-btn" data-type="chakra"><span>🌀</span> Ground Chakra</button>
-      <button class="dock-btn" data-type="rocket"><span>🚀</span> Sky Rocket</button>
       <button class="dock-btn" data-type="bomb"><span>💣</span> Atom Bomb</button>
-      <button class="dock-btn" data-type="sparkler"><span>✨</span> Sparkler</button>
     </div>
 
     <canvas id="mainCanvas"></canvas>
@@ -194,7 +189,7 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Web Audio Synthesizer (Zero Lag, Works on all devices)
+    // Web Audio Synthesizer
     let audioCtx = null;
     let soundEnabled = true;
 
@@ -211,21 +206,8 @@
       if (!soundEnabled || !audioCtx) return;
       const now = audioCtx.currentTime;
 
-      if (type === 'whistle') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(450, now);
-        osc.frequency.exponentialRampToValueAtTime(1700, now + 0.55);
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
-        osc.start(now);
-        osc.stop(now + 0.55);
-      }
-      else if (type === 'snap') {
-        // Sharp Bijili / Cracker Crack
+      if (type === 'snap') {
+        // Crisp Bijili Snap
         const snapBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.08, audioCtx.sampleRate);
         const data = snapBuf.getChannelData(0);
         for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
@@ -233,9 +215,9 @@
         source.buffer = snapBuf;
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'highpass';
-        filter.frequency.setValueAtTime(1800, now);
+        filter.frequency.setValueAtTime(2000, now);
         const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.7, now);
+        gain.gain.setValueAtTime(0.8, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.07);
         source.connect(filter);
         filter.connect(gain);
@@ -249,12 +231,12 @@
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(160, now);
-        osc.frequency.exponentialRampToValueAtTime(28, now + 0.45);
-        gain.gain.setValueAtTime(0.8, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+        osc.frequency.setValueAtTime(170, now);
+        osc.frequency.exponentialRampToValueAtTime(28, now + 0.5);
+        gain.gain.setValueAtTime(0.9, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
         osc.start(now);
-        osc.stop(now + 0.45);
+        osc.stop(now + 0.5);
       }
       else if (type === 'hiss') {
         const bufferSize = audioCtx.sampleRate * 0.25;
@@ -288,13 +270,12 @@
       }
     }
 
-    function screenFlash(opacity = 0.4) {
+    function screenFlash(opacity = 0.45) {
       flashEl.style.opacity = opacity;
-      setTimeout(() => { flashEl.style.opacity = '0'; }, 80);
+      setTimeout(() => { flashEl.style.opacity = '0'; }, 85);
     }
 
     // Entities Arrays
-    let rockets = [];
     let groundCrackers = [];
     let particles = [];
     let paperShreds = [];
@@ -302,16 +283,16 @@
 
     // Background Stars
     const stars = [];
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 75; i++) {
       stars.push({
         x: Math.random() * window.innerWidth,
-        y: Math.random() * (window.innerHeight * 0.65),
+        y: Math.random() * (window.innerHeight * 0.55),
         size: Math.random() * 1.8 + 0.5,
         alpha: Math.random() * 0.6 + 0.3
       });
     }
 
-    // Particles Class
+    // Particle Class
     class Particle {
       constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.08, friction = 0.97) {
         this.x = x;
@@ -349,13 +330,13 @@
     }
 
     // ==========================================
-    // 1. BIJILI CRACKER (PROMINENT ON GROUND)
+    // 1. BIJILI CRACKER
     // ==========================================
     class BijiliCracker {
       constructor(x, y) {
         this.x = x;
-        this.y = Math.max(canvas.height * 0.65, Math.min(canvas.height - 85, y));
-        this.fuse = 45; // frames to ignite (~1 sec)
+        this.y = Math.max(canvas.height * 0.62, Math.min(canvas.height - 90, y));
+        this.fuse = 45;
         this.state = 'burning';
         playSound('hiss');
       }
@@ -365,7 +346,7 @@
           // Fuse spark
           for (let i = 0; i < 2; i++) {
             particles.push(new Particle(
-              this.x, this.y - 48 + (45 - this.fuse) * 0.8, '#ff9900',
+              this.x, this.y - 48 + (45 - this.fuse) * 0.8, '#ffaa00',
               (Math.random() - 0.5) * 3, -Math.random() * 3, 0.4, 2
             ));
           }
@@ -381,11 +362,11 @@
       explode() {
         playSound('snap');
         playSound('boom');
-        screenFlash(0.5);
+        screenFlash(0.55);
         scorchMarks.push({ x: this.x, y: this.y + 10, radius: 45 });
 
         // Red & Gold Paper Shreds flying out
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 45; i++) {
           const angle = Math.random() * Math.PI * 2;
           const speed = Math.random() * 12 + 3;
           paperShreds.push({
@@ -402,7 +383,7 @@
         }
 
         // Sparks
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 60; i++) {
           const angle = Math.random() * Math.PI * 2;
           const speed = Math.random() * 14 + 2;
           particles.push(new Particle(
@@ -463,18 +444,18 @@
     class Flowerpot {
       constructor(x, y) {
         this.x = x;
-        this.y = Math.max(canvas.height * 0.65, Math.min(canvas.height - 80, y));
-        this.duration = 180;
+        this.y = Math.max(canvas.height * 0.62, Math.min(canvas.height - 80, y));
+        this.duration = 190;
         this.timer = 0;
         playSound('hiss');
       }
       update() {
         this.timer++;
         const intensity = Math.sin((this.timer / this.duration) * Math.PI);
-        const count = Math.floor(intensity * 15 + 3);
+        const count = Math.floor(intensity * 16 + 4);
 
         for (let i = 0; i < count; i++) {
-          const speed = Math.random() * 12 + 6;
+          const speed = Math.random() * 13 + 6;
           const spread = (Math.random() - 0.5) * 0.55;
           particles.push(new Particle(
             this.x + (Math.random() * 8 - 4), this.y - 18, Math.random() > 0.3 ? '#ffd700' : '#ffffff',
@@ -482,7 +463,7 @@
             0.9, Math.random() * 3 + 1.5, 0.18, 0.97
           ));
         }
-        if (Math.random() < 0.2) playSound('crackle');
+        if (Math.random() < 0.22) playSound('crackle');
         return this.timer < this.duration;
       }
       draw() {
@@ -503,107 +484,12 @@
     }
 
     // ==========================================
-    // 3. GROUND CHAKRA (CHAKKARI)
-    // ==========================================
-    class Chakra {
-      constructor(x, y) {
-        this.x = x;
-        this.y = Math.max(canvas.height * 0.65, Math.min(canvas.height - 80, y));
-        this.angle = 0;
-        this.duration = 200;
-        this.timer = 0;
-        playSound('hiss');
-      }
-      update() {
-        this.timer++;
-        this.angle += 0.38;
-        const color = ['#ff0055', '#00ffff', '#ffd700', '#00ff66'][Math.floor(this.timer / 15) % 4];
-
-        for (let i = 0; i < 4; i++) {
-          const dir = this.angle + (i * Math.PI / 2);
-          const speed = Math.random() * 7 + 4;
-          particles.push(new Particle(
-            this.x, this.y, color,
-            Math.cos(dir) * speed, Math.sin(dir) * speed * 0.35,
-            0.8, Math.random() * 2.5 + 1.5, 0.07, 0.96
-          ));
-        }
-        if (Math.random() < 0.15) playSound('crackle');
-        return this.timer < this.duration;
-      }
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-        ctx.fillStyle = '#ff0055';
-        ctx.shadowColor = '#00ffff';
-        ctx.shadowBlur = 12;
-        ctx.beginPath();
-        ctx.arc(0, 0, 14, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#ffd700';
-        ctx.fillRect(-18, -4, 36, 8);
-        ctx.restore();
-      }
-    }
-
-    // ==========================================
-    // 4. SKY ROCKET
-    // ==========================================
-    class Rocket {
-      constructor(targetX, targetY) {
-        this.x = targetX;
-        this.y = canvas.height;
-        this.targetY = Math.min(targetY, canvas.height * 0.5);
-        this.speed = Math.random() * 3 + 12;
-        this.color = ['#ff0055', '#ff9900', '#00ffff', '#00ff66', '#ffd700', '#bf00ff'][Math.floor(Math.random() * 6)];
-        playSound('whistle');
-      }
-      update() {
-        this.y -= this.speed;
-        // Trail
-        particles.push(new Particle(
-          this.x, this.y + 10, '#ff9900',
-          (Math.random() - 0.5) * 1.5, Math.random() * 2, 0.4, 2
-        ));
-        if (this.y <= this.targetY) {
-          this.explode();
-          return false;
-        }
-        return true;
-      }
-      explode() {
-        playSound('boom');
-        screenFlash(0.35);
-        for (let i = 0; i < 85; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 8 + 2;
-          particles.push(new Particle(
-            this.x, this.y, this.color,
-            Math.cos(angle) * speed, Math.sin(angle) * speed,
-            1, Math.random() * 3 + 2, 0.06, 0.96
-          ));
-        }
-      }
-      draw() {
-        ctx.save();
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 12;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    // ==========================================
-    // 5. ATOM BOMB
+    // 3. ATOM BOMB
     // ==========================================
     class AtomBomb {
       constructor(x, y) {
         this.x = x;
-        this.y = Math.max(canvas.height * 0.65, Math.min(canvas.height - 80, y));
+        this.y = Math.max(canvas.height * 0.62, Math.min(canvas.height - 80, y));
         this.fuse = 55;
         playSound('hiss');
       }
@@ -616,11 +502,11 @@
         if (this.fuse <= 0) {
           playSound('boom');
           playSound('snap');
-          screenFlash(0.7);
+          screenFlash(0.75);
           scorchMarks.push({ x: this.x, y: this.y + 10, radius: 70 });
-          for (let i = 0; i < 110; i++) {
+          for (let i = 0; i < 120; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 14 + 3;
+            const speed = Math.random() * 15 + 3;
             particles.push(new Particle(
               this.x, this.y, ['#ff0055', '#ffd700', '#ff9900', '#00ffff'][Math.floor(Math.random() * 4)],
               Math.cos(angle) * speed, Math.sin(angle) * speed - 2, 1.2, Math.random() * 4 + 2, 0.1
@@ -656,14 +542,11 @@
     function updateHint() {
       if (currentType === 'bijili') hintEl.innerText = '🧨 Click ground to place & light a Red Bijili cracker!';
       else if (currentType === 'flowerpot') hintEl.innerText = '🌺 Click ground to light a glowing Anar Flowerpot!';
-      else if (currentType === 'chakra') hintEl.innerText = '🌀 Click ground to spin a glowing Ground Chakra!';
-      else if (currentType === 'rocket') hintEl.innerText = '🚀 Click anywhere in the sky to launch Sky Rockets!';
       else if (currentType === 'bomb') hintEl.innerText = '💣 Click ground to place a heavy Atom Bomb!';
-      else if (currentType === 'sparkler') hintEl.innerText = '✨ Drag mouse or finger to make sparkling lights!';
     }
     updateHint();
 
-    // Trigger on Canvas Click
+    // Trigger on Ground Click
     canvas.addEventListener('click', (e) => {
       initAudio();
       const rect = canvas.getBoundingClientRect();
@@ -674,47 +557,10 @@
         groundCrackers.push(new BijiliCracker(x, y));
       } else if (currentType === 'flowerpot') {
         groundCrackers.push(new Flowerpot(x, y));
-      } else if (currentType === 'chakra') {
-        groundCrackers.push(new Chakra(x, y));
-      } else if (currentType === 'rocket') {
-        rockets.push(new Rocket(x, y));
       } else if (currentType === 'bomb') {
         groundCrackers.push(new AtomBomb(x, y));
-      } else if (currentType === 'sparkler') {
-        makeSparkler(x, y);
       }
     });
-
-    // Sparkler Dragging
-    let isDragging = false;
-    canvas.addEventListener('mousedown', () => { isDragging = true; });
-    window.addEventListener('mouseup', () => { isDragging = false; });
-    canvas.addEventListener('mousemove', (e) => {
-      if (isDragging && currentType === 'sparkler') {
-        makeSparkler(e.clientX, e.clientY);
-      }
-    });
-
-    canvas.addEventListener('touchmove', (e) => {
-      if (currentType === 'sparkler') {
-        const touch = e.touches[0];
-        makeSparkler(touch.clientX, touch.clientY);
-      }
-    }, { passive: true });
-
-    function makeSparkler(x, y) {
-      initAudio();
-      for (let i = 0; i < 7; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4 + 1;
-        particles.push(new Particle(
-          x, y, '#ffd700',
-          Math.cos(angle) * speed, Math.sin(angle) * speed,
-          0.6, Math.random() * 2.5 + 1, 0.05
-        ));
-      }
-      if (Math.random() < 0.25) playSound('crackle');
-    }
 
     // Clear Button
     document.getElementById('clear-btn').addEventListener('click', () => {
@@ -723,7 +569,6 @@
       paperShreds = [];
       scorchMarks = [];
       particles = [];
-      rockets = [];
     });
 
     // Sound Button
@@ -748,8 +593,8 @@
       }
       ctx.globalAlpha = 1;
 
-      // PROMINENT VISIBLE GROUND / TERRACE (Starts at 60% height)
-      const groundY = canvas.height * 0.60;
+      // PROMINENT VISIBLE GROUND / TERRACE (Starts at 58% height)
+      const groundY = canvas.height * 0.58;
       const gGrad = ctx.createLinearGradient(0, groundY, 0, canvas.height);
       gGrad.addColorStop(0, '#1c1230');
       gGrad.addColorStop(0.3, '#140c24');
@@ -818,21 +663,12 @@
         ctx.restore();
       }
 
-      // Ground Crackers (Bijili, Anar, Chakra, Bomb)
+      // Ground Crackers (Bijili, Anar, Bomb)
       for (let i = groundCrackers.length - 1; i >= 0; i--) {
         if (!groundCrackers[i].update()) {
           groundCrackers.splice(i, 1);
         } else {
           groundCrackers[i].draw();
-        }
-      }
-
-      // Sky Rockets
-      for (let i = rockets.length - 1; i >= 0; i--) {
-        if (!rockets[i].update()) {
-          rockets.splice(i, 1);
-        } else {
-          rockets[i].draw();
         }
       }
 
