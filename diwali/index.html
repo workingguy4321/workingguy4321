@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>🚀 DIWALI SKY SHOT & BIJILI SIMULATOR 🪔 // Happy Deepavali!</title>
+  <title>🪔 1-MINUTE GRAND DIWALI SKY SHOT SHOW 🎆</title>
   <style>
     * {
       box-sizing: border-box;
@@ -34,9 +34,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      cursor: crosshair;
     }
-    /* Header HUD */
+    /* Top HUD */
     #top-hud {
       position: absolute;
       top: 15px;
@@ -47,31 +46,27 @@
       z-index: 20;
     }
     h1 {
-      font-size: clamp(22px, 4.2vw, 38px);
+      font-size: clamp(22px, 4vw, 36px);
       font-weight: 900;
       letter-spacing: 2px;
       background: linear-gradient(135deg, #ffe066, #ff8c00, #ff0055, #00ffff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 25px rgba(255, 140, 0, 0.6);
-      animation: pulseTitle 2s ease-in-out infinite alternate;
+      text-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
     }
-    @keyframes pulseTitle {
-      0% { transform: scale(0.98); }
-      100% { transform: scale(1.02); }
-    }
-    #hint-bar {
+    #status-bar {
       font-size: clamp(13px, 1.8vw, 16px);
       color: #fff2a3;
       margin-top: 6px;
       text-shadow: 0 0 10px rgba(0,0,0,0.9);
-      background: rgba(8, 4, 18, 0.7);
+      background: rgba(10, 5, 20, 0.7);
       display: inline-block;
-      padding: 5px 22px;
+      padding: 6px 24px;
       border-radius: 20px;
       border: 1px solid rgba(255, 153, 0, 0.4);
+      font-weight: 700;
     }
-    /* Top Controls */
+    /* Controls Top Right */
     #top-controls {
       position: absolute;
       top: 15px;
@@ -84,64 +79,72 @@
       background: rgba(18, 10, 35, 0.85);
       border: 1.5px solid #ff9900;
       color: #ffd700;
-      padding: 8px 16px;
+      padding: 9px 18px;
       border-radius: 20px;
       cursor: pointer;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       box-shadow: 0 0 15px rgba(255, 153, 0, 0.3);
       transition: all 0.2s ease;
       backdrop-filter: blur(8px);
     }
-    .hud-btn:hover, .hud-btn.active {
+    .hud-btn:hover {
       background: linear-gradient(135deg, #ff9900, #ff0055);
       color: #ffffff;
       transform: scale(1.05);
     }
-    /* Cracker Dock (Sky Shot, Bijili & Sparkler) */
-    #cracker-dock {
+    /* Start / Replay Big Button */
+    #start-overlay {
       position: absolute;
-      bottom: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
-      background: rgba(10, 5, 25, 0.92);
-      border: 2px solid #ff9900;
-      border-radius: 50px;
-      padding: 10px 22px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 3, 10, 0.85);
       display: flex;
-      gap: 15px;
-      box-shadow: 0 0 35px rgba(255, 153, 0, 0.45);
-      backdrop-filter: blur(12px);
-    }
-    .dock-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1.5px solid rgba(255, 153, 0, 0.35);
-      color: #ffffff;
-      padding: 10px 22px;
-      border-radius: 30px;
-      cursor: pointer;
-      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 800;
-      white-space: nowrap;
+      justify-content: center;
+      z-index: 40;
+      text-align: center;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
+    #start-overlay h2 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffe066, #ff8c00, #ff0055, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+    }
+    #start-overlay p {
+      font-size: clamp(14px, 2vw, 18px);
+      color: #cbd5e1;
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    .play-btn {
+      background: linear-gradient(135deg, #ff0055, #ff9900);
+      border: 2px solid #ffd700;
+      color: #ffffff;
+      padding: 16px 42px;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 35px rgba(255, 0, 85, 0.7);
       transition: all 0.2s ease;
+      font-family: inherit;
     }
-    .dock-btn span {
-      font-size: 20px;
+    .play-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 50px rgba(255, 153, 0, 0.9);
     }
-    .dock-btn:hover {
-      background: rgba(255, 153, 0, 0.25);
-      border-color: #ffd700;
-    }
-    .dock-btn.active {
-      background: linear-gradient(135deg, #00f0ff, #7000ff);
-      border-color: #00ffff;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
-      transform: translateY(-3px) scale(1.06);
-    }
+    /* Screen Flash */
     #flash {
       position: absolute;
       top: 0;
@@ -151,8 +154,42 @@
       background: #ffffff;
       opacity: 0;
       pointer-events: none;
-      z-index: 15;
+      z-index: 25;
       transition: opacity 0.08s ease-out;
+    }
+    /* Final Floating Greeting */
+    #final-greeting {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 35;
+      transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #final-greeting.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    #final-greeting h1 {
+      font-size: clamp(38px, 8vw, 75px);
+      font-weight: 900;
+      letter-spacing: 6px;
+      background: linear-gradient(135deg, #ffd700, #ff8c00, #ff007f, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.9));
+      text-shadow: none;
+      margin-bottom: 8px;
+    }
+    #final-greeting .sub {
+      font-size: clamp(16px, 3vw, 26px);
+      color: #ffffff;
+      text-shadow: 0 0 15px #ff007f, 0 0 30px #00ffff;
+      font-weight: 800;
+      letter-spacing: 3px;
     }
   </style>
 </head>
@@ -160,22 +197,30 @@
 
   <div id="flash"></div>
 
+  <!-- Start Show Overlay -->
+  <div id="start-overlay">
+    <h2>🎆 1-MINUTE DIWALI SKY SHOT SHOW 🪔</h2>
+    <p>
+      Get ready for a 60-second non-stop continuous Sky Shot fireworks show! 🚀<br>
+      Watch out for <b>Heart-shaped explosions ❤️</b>, and wait for the <b>Grand Finale: Two final sky shots revealing "HAPPY DIWALI"!</b>
+    </p>
+    <button class="play-btn" id="start-show-btn">🚀 IGNITE 1-MINUTE SHOW 🪔</button>
+  </div>
+
+  <!-- Final Glowing Greeting -->
+  <div id="final-greeting">
+    <h1>🪔 HAPPY DIWALI 🪔</h1>
+    <div class="sub">✨ WISHING YOU PROSPERITY &amp; JOY ✨</div>
+  </div>
+
   <div id="stage-container">
     <div id="top-hud">
-      <h1>🪔 HAPPY DIWALI 🪔</h1>
-      <div id="hint-bar">🚀 Click anywhere in the sky to launch colorful Sky Shots!</div>
+      <div id="status-bar">⏱️ Show Time: 60s Remaining</div>
     </div>
 
     <div id="top-controls">
-      <button class="hud-btn" id="auto-btn">🎆 Auto Sky Shots: OFF</button>
+      <button class="hud-btn" id="restart-btn">🔄 Restart Show</button>
       <button class="hud-btn" id="sound-btn">🔊 Sound: ON</button>
-    </div>
-
-    <!-- Dock: Only Sky Shot, Bijili & Sparkler -->
-    <div id="cracker-dock">
-      <button class="dock-btn active" data-type="skyshot"><span>🚀</span> Sky Shot (Fireworks)</button>
-      <button class="dock-btn" data-type="bijili"><span>🧨</span> Red Bijili Cracker</button>
-      <button class="dock-btn" data-type="sparkler"><span>✨</span> Sparkler</button>
     </div>
 
     <canvas id="mainCanvas"></canvas>
@@ -185,7 +230,9 @@
     const canvas = document.getElementById('mainCanvas');
     const ctx = canvas.getContext('2d');
     const flashEl = document.getElementById('flash');
-    const hintEl = document.getElementById('hint-bar');
+    const statusBar = document.getElementById('status-bar');
+    const startOverlay = document.getElementById('start-overlay');
+    const finalGreeting = document.getElementById('final-greeting');
 
     function resize() {
       canvas.width = window.innerWidth;
@@ -194,7 +241,7 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Web Audio Synthesizer (Whistle, Loud Boom, Bijili Snap & Crackle)
+    // Audio Synthesizer
     let audioCtx = null;
     let soundEnabled = true;
 
@@ -212,34 +259,33 @@
       const now = audioCtx.currentTime;
 
       if (type === 'whistle') {
-        // High-pitched screeching rocket ascent
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(450, now);
-        osc.frequency.exponentialRampToValueAtTime(1800, now + 0.6);
-        gain.gain.setValueAtTime(0.09, now);
+        osc.frequency.setValueAtTime(400, now);
+        osc.frequency.exponentialRampToValueAtTime(1700, now + 0.6);
+        gain.gain.setValueAtTime(0.08, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
         osc.start(now);
         osc.stop(now + 0.6);
       }
-      else if (type === 'skyboom') {
-        // Huge Thunderous Aerial Explosion
+      else if (type === 'boom') {
+        // Sub-bass aerial blast
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.setValueAtTime(160, now);
         osc.frequency.exponentialRampToValueAtTime(28, now + 0.55);
-        gain.gain.setValueAtTime(0.95, now);
+        gain.gain.setValueAtTime(0.9, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.55);
         osc.start(now);
         osc.stop(now + 0.55);
 
-        // Crackling air burst noise
+        // Noise crackle
         const bufferSize = audioCtx.sampleRate * 0.45;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
@@ -258,102 +304,65 @@
         noiseGain.connect(audioCtx.destination);
         noise.start(now);
       }
-      else if (type === 'snap') {
-        // Sharp Bijili Crack
-        const snapBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.08, audioCtx.sampleRate);
-        const data = snapBuf.getChannelData(0);
-        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-        const source = audioCtx.createBufferSource();
-        source.buffer = snapBuf;
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'highpass';
-        filter.frequency.setValueAtTime(2200, now);
-        const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.8, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.07);
-        source.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-        source.start(now);
-      }
-      else if (type === 'hiss') {
-        const bufferSize = audioCtx.sampleRate * 0.25;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(3200, now);
-        const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-        noise.start(now);
-      }
-      else if (type === 'crackle') {
+      else if (type === 'finaleBoom') {
+        // Massive Deep Thunder for the Last 2 Sky Shots
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(Math.random() * 900 + 400, now);
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.04);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(20, now + 0.85);
+        gain.gain.setValueAtTime(1.0, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.85);
         osc.start(now);
-        osc.stop(now + 0.04);
+        osc.stop(now + 0.85);
       }
     }
 
     function screenFlash(opacity = 0.45) {
       flashEl.style.opacity = opacity;
-      setTimeout(() => { flashEl.style.opacity = '0'; }, 85);
+      setTimeout(() => { flashEl.style.opacity = '0'; }, 90);
     }
 
-    // Entities Arrays
+    // Color Palettes
+    const palettes = [
+      ['#ff0055', '#ff9900', '#ffd700'], // Fire & Gold
+      ['#00ffff', '#00ff66', '#ffffff'], // Cyan & Emerald
+      ['#c084fc', '#ff00aa', '#00f0ff'], // Cosmic Purple
+      ['#ff007f', '#ffffff', '#ff3366'], // Heart Red/Pink
+      ['#ffe600', '#ff5500', '#ffffff']  // Golden Sparkle
+    ];
+
+    // Arrays
     let skyShots = [];
-    let groundBijilis = [];
     let particles = [];
-    let paperShreds = [];
-    let scorchMarks = [];
+    let textParticles = [];
 
     // Background Stars
     const stars = [];
     for (let i = 0; i < 90; i++) {
       stars.push({
         x: Math.random() * window.innerWidth,
-        y: Math.random() * (window.innerHeight * 0.65),
+        y: Math.random() * (window.innerHeight * 0.7),
         size: Math.random() * 1.8 + 0.5,
         alpha: Math.random() * 0.6 + 0.3
       });
     }
 
-    // Color Palettes for Sky Shot
-    const colorThemes = [
-      ['#ff0055', '#ff9900', '#ffd700'], // Fire Red & Gold
-      ['#00ffff', '#00ff66', '#ffffff'], // Neon Cyan & Emerald
-      ['#c084fc', '#ff00aa', '#00f0ff'], // Cosmic Purple & Magenta
-      ['#ffe600', '#ffffff', '#ff3300'], // Golden Glitter Rain
-      ['#00ff99', '#38bdf8', '#a855f7']  // Aurora Sky
-    ];
-
-    // Particle Class
+    // Standard Particle Class
     class Particle {
-      constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.07, friction = 0.97, spark = true) {
+      constructor(x, y, color, vx, vy, life = 1, size = 3, gravity = 0.065, friction = 0.97) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.vx = vx;
         this.vy = vy;
         this.alpha = life;
-        this.decay = Math.random() * 0.02 + 0.012;
+        this.decay = Math.random() * 0.018 + 0.012;
         this.size = size;
         this.gravity = gravity;
         this.friction = friction;
-        this.spark = spark;
       }
       update() {
         this.vx *= this.friction;
@@ -370,7 +379,7 @@
         ctx.globalAlpha = Math.max(0, this.alpha);
         ctx.fillStyle = this.color;
         ctx.shadowColor = this.color;
-        ctx.shadowBlur = this.spark ? 14 : 6;
+        ctx.shadowBlur = 12;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -378,38 +387,103 @@
       }
     }
 
-    // ==========================================
-    // 1. SKY SHOT (MAGNIFICENT AERIAL FIREWORK)
-    // ==========================================
-    class SkyShot {
-      constructor(targetX, targetY) {
+    // Firework Letter Text Particle
+    class TextFireworkParticle {
+      constructor(targetX, targetY, color) {
+        this.x = targetX + (Math.random() - 0.5) * 80;
+        this.y = targetY + (Math.random() - 0.5) * 80;
         this.targetX = targetX;
-        this.targetY = Math.min(targetY, canvas.height * 0.55);
-        this.x = targetX + (Math.random() * 40 - 20);
-        this.y = canvas.height * 0.72; // Launch from ground mortar
+        this.targetY = targetY;
+        this.color = color;
+        this.alpha = 1;
+        this.size = Math.random() * 3 + 2.5;
+        this.decay = 0.003; // lasts long to read the greeting
+        this.flicker = Math.random() * Math.PI;
+      }
+      update() {
+        // Magnetically lock to target position
+        this.x += (this.targetX - this.x) * 0.08;
+        this.y += (this.targetY - this.y) * 0.08;
+        this.y += 0.08; // slow drift downwards
+        this.targetY += 0.08;
+        this.alpha -= this.decay;
+        this.flicker += 0.15;
+        return this.alpha > 0;
+      }
+      draw() {
+        ctx.save();
+        const fAlpha = this.alpha * (0.8 + Math.sin(this.flicker) * 0.2);
+        ctx.globalAlpha = Math.max(0, fAlpha);
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 14;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Generate Firework Text Particles for "HAPPY DIWALI"
+    function createHappyDiwaliParticles(centerX, centerY) {
+      const textCanvas = document.createElement('canvas');
+      textCanvas.width = 750;
+      textCanvas.height = 140;
+      const tCtx = textCanvas.getContext('2d');
+
+      tCtx.fillStyle = '#ffffff';
+      tCtx.font = '900 48px "Segoe UI", sans-serif';
+      tCtx.textAlign = 'center';
+      tCtx.fillText('HAPPY DIWALI', textCanvas.width / 2, 75);
+
+      const imgData = tCtx.getImageData(0, 0, textCanvas.width, textCanvas.height);
+      const data = imgData.data;
+      const gap = 6; // sampling density
+
+      for (let y = 0; y < textCanvas.height; y += gap) {
+        for (let x = 0; x < textCanvas.width; x += gap) {
+          const index = (y * textCanvas.width + x) * 4;
+          if (data[index + 3] > 128) {
+            const posX = centerX - textCanvas.width / 2 + x;
+            const posY = centerY - textCanvas.height / 2 + y;
+            const color = (x < textCanvas.width / 2) ? '#ffd700' : '#ff007f';
+            textParticles.push(new TextFireworkParticle(posX, posY, color));
+          }
+        }
+      }
+    }
+
+    // Sky Shot Class
+    class SkyShot {
+      constructor(targetX, targetY, isHeart = false, isFinale = false) {
+        this.targetX = targetX;
+        this.targetY = targetY;
+        this.x = targetX + (Math.random() * 30 - 15);
+        this.y = canvas.height * 0.85;
         const dx = this.targetX - this.x;
         const dy = this.targetY - this.y;
         const dist = Math.hypot(dx, dy);
-        const speed = Math.random() * 3 + 14;
+        const speed = isFinale ? 14 : Math.random() * 3 + 13;
         this.vx = (dx / dist) * speed;
         this.vy = (dy / dist) * speed;
-        this.palette = colorThemes[Math.floor(Math.random() * colorThemes.length)];
+        this.isHeart = isHeart;
+        this.isFinale = isFinale;
+        this.palette = palettes[Math.floor(Math.random() * palettes.length)];
         playSound('whistle');
       }
       update() {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Glowing Golden Fire Trail
-        for (let i = 0; i < 3; i++) {
+        // Glowing fire tracer
+        for (let i = 0; i < 2; i++) {
           particles.push(new Particle(
             this.x, this.y, '#ffd700',
             (Math.random() - 0.5) * 2, Math.random() * 2 + 1,
-            0.6, 2.5, 0.02, 0.96
+            0.5, 2.5, 0.02, 0.96
           ));
         }
 
-        // Burst when reached apex
         if (this.vy >= 0 || this.y <= this.targetY) {
           this.burst();
           return false;
@@ -417,40 +491,66 @@
         return true;
       }
       burst() {
-        playSound('skyboom');
-        screenFlash(0.4);
+        if (this.isFinale) {
+          playSound('finaleBoom');
+          screenFlash(0.7);
 
-        const count = Math.floor(Math.random() * 40 + 90);
-        const pattern = Math.random();
+          // Form "HAPPY DIWALI" text in the sky
+          createHappyDiwaliParticles(canvas.width / 2, canvas.height * 0.28);
+          finalGreeting.classList.add('show');
 
-        for (let i = 0; i < count; i++) {
-          let angle, speed;
-          if (pattern > 0.4) {
-            // Spherical Peony Burst
-            angle = Math.random() * Math.PI * 2;
-            speed = Math.random() * 9 + 2;
-          } else {
-            // Double Ring Burst
-            angle = (i / count) * Math.PI * 2;
-            speed = (i % 2 === 0 ? 7 : 4.5) + Math.random() * 1.5;
+          // Massive surrounding golden glitter crown
+          for (let i = 0; i < 140; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 12 + 2;
+            particles.push(new Particle(
+              this.x, this.y, ['#ffd700', '#ffffff', '#ff007f', '#00ffff'][i % 4],
+              Math.cos(angle) * speed, Math.sin(angle) * speed,
+              1.3, Math.random() * 4 + 2, 0.05, 0.96
+            ));
           }
+          return;
+        }
 
-          const color = this.palette[Math.floor(Math.random() * this.palette.length)];
+        playSound('boom');
+        screenFlash(0.35);
+
+        // ==========================================
+        // HEART SHAPED BURST ❤️
+        // ==========================================
+        if (this.isHeart) {
+          for (let t = 0; t < Math.PI * 2; t += 0.1) {
+            // Parametric Heart Curve Formula
+            const hx = 16 * Math.pow(Math.sin(t), 3);
+            const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+            const speed = 0.38;
+            particles.push(new Particle(
+              this.x, this.y, '#ff007f',
+              hx * speed, hy * speed, 1.3, 3.5, 0.015, 0.97
+            ));
+          }
+          // Inner glowing heart core
+          for (let i = 0; i < 20; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 3 + 1;
+            particles.push(new Particle(
+              this.x, this.y, '#ffffff',
+              Math.cos(angle) * speed, Math.sin(angle) * speed, 1, 2.5, 0.02, 0.96
+            ));
+          }
+          return;
+        }
+
+        // Standard Spherical / Ring Burst
+        const count = Math.floor(Math.random() * 40 + 85);
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 8.5 + 2;
+          const color = this.palette[i % this.palette.length];
           particles.push(new Particle(
             this.x, this.y, color,
             Math.cos(angle) * speed, Math.sin(angle) * speed,
-            1, Math.random() * 3.5 + 2, 0.065, 0.96, true
-          ));
-        }
-
-        // Extra cascading golden willow rain sparks
-        for (let i = 0; i < 25; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 4 + 1;
-          particles.push(new Particle(
-            this.x, this.y, '#ffffff',
-            Math.cos(angle) * speed, Math.sin(angle) * speed,
-            1.2, 2, 0.12, 0.98, true
+            1, Math.random() * 3.5 + 2, 0.06, 0.96
           ));
         }
       }
@@ -460,209 +560,99 @@
         ctx.shadowColor = '#00ffff';
         ctx.shadowBlur = 15;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.isFinale ? 5.5 : 4, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
     }
 
-    // ==========================================
-    // 2. RED BIJILI CRACKER (ON GROUND)
-    // ==========================================
-    class BijiliCracker {
-      constructor(x, y) {
-        this.x = x;
-        this.y = Math.max(canvas.height * 0.65, Math.min(canvas.height - 85, y));
-        this.fuse = 45;
-        this.state = 'burning';
-        playSound('hiss');
-      }
-      update() {
-        if (this.state === 'burning') {
-          this.fuse--;
-          for (let i = 0; i < 2; i++) {
-            particles.push(new Particle(
-              this.x, this.y - 48 + (45 - this.fuse) * 0.8, '#ffaa00',
-              (Math.random() - 0.5) * 3, -Math.random() * 3, 0.4, 2
-            ));
-          }
-          if (Math.random() < 0.25) playSound('crackle');
+    // ========================================================
+    // 1-MINUTE TIMELINE SHOW ORCHESTRATION ENGINE
+    // ========================================================
+    let showActive = false;
+    let showTime = 60; // 60 seconds show
+    let showTimerInterval = null;
+    let rocketLaunchInterval = null;
+    let finaleLaunched = false;
 
-          if (this.fuse <= 0) {
-            this.explode();
-            return false;
-          }
-        }
-        return true;
-      }
-      explode() {
-        playSound('snap');
-        screenFlash(0.5);
-        scorchMarks.push({ x: this.x, y: this.y + 10, radius: 45 });
+    function startShow() {
+      initAudio();
+      startOverlay.style.display = 'none';
+      finalGreeting.classList.remove('show');
+      showActive = true;
+      showTime = 60;
+      finaleLaunched = false;
+      skyShots = [];
+      particles = [];
+      textParticles = [];
 
-        // Red & Gold Paper Shreds flying out
-        for (let i = 0; i < 45; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 12 + 3;
-          paperShreds.push({
-            x: this.x,
-            y: this.y - 15,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - 3,
-            color: Math.random() > 0.3 ? '#ff2222' : '#ffd700',
-            size: Math.random() * 8 + 4,
-            rotation: Math.random() * Math.PI,
-            rotSpeed: (Math.random() - 0.5) * 0.4,
-            alpha: 1
-          });
+      clearInterval(showTimerInterval);
+      clearInterval(rocketLaunchInterval);
+
+      // Countdown Timer
+      showTimerInterval = setInterval(() => {
+        showTime--;
+        if (showTime > 8) {
+          statusBar.innerText = `⏱️ Show Time: ${showTime}s Remaining (Watch for Hearts ❤️)`;
+        } else if (showTime > 3) {
+          statusBar.innerText = `🚀 GRAND FINALE INCOMING: Final 2 Sky Shots preparing...`;
+        } else if (showTime > 0) {
+          statusBar.innerText = `🎆 THE FINAL BLAST: HAPPY DIWALI! 🪔`;
+        } else {
+          statusBar.innerText = `✨ HAPPY DIWALI! ✨ Enjoy the celebration!`;
+          clearInterval(showTimerInterval);
         }
 
-        // Fiery sparks
-        for (let i = 0; i < 55; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 14 + 2;
-          particles.push(new Particle(
-            this.x, this.y - 15, Math.random() > 0.4 ? '#ffcc00' : '#ffffff',
-            Math.cos(angle) * speed, Math.sin(angle) * speed, 1, 3, 0.1
-          ));
+        // Trigger the Last 2 Sky Shots at 6 seconds remaining
+        if (showTime === 6 && !finaleLaunched) {
+          launchGrandFinale();
         }
-      }
-      draw() {
-        ctx.save();
-        // Shadow
-        ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        ctx.beginPath();
-        ctx.ellipse(this.x, this.y + 22, 20, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+      }, 1000);
 
-        // Twisted Fuse
-        const fuseTopY = this.y - 20 - (this.fuse / 45) * 26;
-        ctx.strokeStyle = '#a68a56';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y - 20);
-        ctx.lineTo(this.x + 4, fuseTopY);
-        ctx.stroke();
+      // Rapid Continuous Rocket Launcher (Launches every 600ms)
+      rocketLaunchInterval = setInterval(() => {
+        // Pause regular rockets near the end to spotlight the last 2 sky shots
+        if (showTime <= 7) return;
 
-        // Spark at fuse tip
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = '#ff5500';
-        ctx.shadowBlur = 12;
-        ctx.beginPath();
-        ctx.arc(this.x + 4, fuseTopY, 4, 0, Math.PI * 2);
-        ctx.fill();
+        const targetX = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
+        const targetY = Math.random() * (canvas.height * 0.42) + canvas.height * 0.1;
 
-        // Red Bijili Tube
-        const grad = ctx.createLinearGradient(this.x - 12, 0, this.x + 12, 0);
-        grad.addColorStop(0, '#990000');
-        grad.addColorStop(0.4, '#ff2222');
-        grad.addColorStop(1, '#660000');
-        ctx.fillStyle = grad;
-        ctx.fillRect(this.x - 10, this.y - 20, 20, 42);
-
-        // Gold Twine Rings
-        ctx.strokeStyle = '#ffd700';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(this.x - 10, this.y - 10); ctx.lineTo(this.x + 10, this.y - 10);
-        ctx.moveTo(this.x - 10, this.y); ctx.lineTo(this.x + 10, this.y);
-        ctx.moveTo(this.x - 10, this.y + 10); ctx.lineTo(this.x + 10, this.y + 10);
-        ctx.stroke();
-
-        ctx.restore();
-      }
+        // Every 4th rocket is a glowing HEART shape!
+        const isHeart = Math.random() < 0.28;
+        skyShots.push(new SkyShot(targetX, targetY, isHeart));
+      }, 650);
     }
 
-    // Active Selection State
-    let currentType = 'skyshot';
-    const dockButtons = document.querySelectorAll('.dock-btn');
-    dockButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        initAudio();
-        dockButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentType = btn.getAttribute('data-type');
-        updateHint();
-      });
-    });
+    // THE GRAND FINALE: TWO FINAL SKY SHOTS REVEALING "HAPPY DIWALI"
+    function launchGrandFinale() {
+      finaleLaunched = true;
+      clearInterval(rocketLaunchInterval);
 
-    function updateHint() {
-      if (currentType === 'skyshot') hintEl.innerText = '🚀 Click anywhere in the sky to launch colorful Sky Shots!';
-      else if (currentType === 'bijili') hintEl.innerText = '🧨 Click ground to place & light a Red Bijili cracker!';
-      else if (currentType === 'sparkler') hintEl.innerText = '✨ Drag mouse or touch to draw sparkling golden trails!';
+      // Shot 1 (Left Center)
+      setTimeout(() => {
+        skyShots.push(new SkyShot(canvas.width * 0.38, canvas.height * 0.26, false, true));
+      }, 200);
+
+      // Shot 2 (Right Center)
+      setTimeout(() => {
+        skyShots.push(new SkyShot(canvas.width * 0.62, canvas.height * 0.26, false, true));
+      }, 800);
     }
-    updateHint();
 
-    // Canvas Click Interactions
+    // User can also click anytime in the sky to add their own rockets!
     canvas.addEventListener('click', (e) => {
       initAudio();
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
-      if (currentType === 'skyshot') {
-        skyShots.push(new SkyShot(x, y));
-      } else if (currentType === 'bijili') {
-        groundBijilis.push(new BijiliCracker(x, y));
-      } else if (currentType === 'sparkler') {
-        makeSparkler(x, y);
-      }
+      const isHeart = Math.random() < 0.35;
+      skyShots.push(new SkyShot(x, y, isHeart));
     });
 
-    // Sparkler Dragging
-    let isDragging = false;
-    canvas.addEventListener('mousedown', () => { isDragging = true; });
-    window.addEventListener('mouseup', () => { isDragging = false; });
-    canvas.addEventListener('mousemove', (e) => {
-      if (isDragging && currentType === 'sparkler') {
-        makeSparkler(e.clientX, e.clientY);
-      }
-    });
+    // Button Listeners
+    document.getElementById('start-show-btn').addEventListener('click', startShow);
+    document.getElementById('restart-btn').addEventListener('click', startShow);
 
-    canvas.addEventListener('touchmove', (e) => {
-      if (currentType === 'sparkler') {
-        const touch = e.touches[0];
-        makeSparkler(touch.clientX, touch.clientY);
-      }
-    }, { passive: true });
-
-    function makeSparkler(x, y) {
-      initAudio();
-      for (let i = 0; i < 7; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4 + 1;
-        particles.push(new Particle(
-          x, y, '#ffd700',
-          Math.cos(angle) * speed, Math.sin(angle) * speed,
-          0.6, Math.random() * 2.5 + 1, 0.05
-        ));
-      }
-      if (Math.random() < 0.25) playSound('crackle');
-    }
-
-    // Auto Fireworks Show Toggle
-    let autoShow = false;
-    let autoInterval = null;
-    const autoBtn = document.getElementById('auto-btn');
-    autoBtn.addEventListener('click', () => {
-      initAudio();
-      autoShow = !autoShow;
-      if (autoShow) {
-        autoBtn.innerText = '🎆 Auto Sky Shots: ON';
-        autoBtn.classList.add('active');
-        autoInterval = setInterval(() => {
-          const rx = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
-          const ry = Math.random() * (canvas.height * 0.4) + canvas.height * 0.1;
-          skyShots.push(new SkyShot(rx, ry));
-        }, 750);
-      } else {
-        autoBtn.innerText = '🎆 Auto Sky Shots: OFF';
-        autoBtn.classList.remove('active');
-        clearInterval(autoInterval);
-      }
-    });
-
-    // Sound Button
     const soundBtn = document.getElementById('sound-btn');
     soundBtn.addEventListener('click', () => {
       initAudio();
@@ -672,11 +662,11 @@
 
     // Main Render Loop
     function loop() {
-      // Semi-clear for particle trails
-      ctx.fillStyle = 'rgba(2, 3, 10, 0.25)';
+      // Semi-transparent fade for long light trails
+      ctx.fillStyle = 'rgba(2, 3, 10, 0.22)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Sky Stars
+      // Stars
       ctx.fillStyle = '#ffffff';
       for (let s of stars) {
         ctx.globalAlpha = s.alpha;
@@ -684,74 +674,16 @@
       }
       ctx.globalAlpha = 1;
 
-      // Ground Surface
-      const groundY = canvas.height * 0.70;
-      const gGrad = ctx.createLinearGradient(0, groundY, 0, canvas.height);
-      gGrad.addColorStop(0, '#160e28');
-      gGrad.addColorStop(0.3, '#10091e');
-      gGrad.addColorStop(1, '#07030e');
-      ctx.fillStyle = gGrad;
+      // Ground Silhouette
+      const groundY = canvas.height * 0.85;
+      ctx.fillStyle = '#080512';
       ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
-
-      // Glowing Ground Border
-      ctx.strokeStyle = '#ff8800';
-      ctx.lineWidth = 2.5;
-      ctx.shadowColor = '#ff8800';
-      ctx.shadowBlur = 15;
+      ctx.strokeStyle = '#ff9900';
+      ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(0, groundY);
       ctx.lineTo(canvas.width, groundY);
       ctx.stroke();
-      ctx.shadowBlur = 0;
-
-      // Draw Scorch Marks
-      for (let sm of scorchMarks) {
-        ctx.save();
-        ctx.fillStyle = 'rgba(0,0,0,0.65)';
-        ctx.beginPath();
-        ctx.ellipse(sm.x, sm.y, sm.radius, sm.radius * 0.35, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-
-      // Paper Shreds
-      for (let i = paperShreds.length - 1; i >= 0; i--) {
-        const p = paperShreds[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.28;
-        p.vx *= 0.96;
-        p.rotation += p.rotSpeed;
-        p.alpha -= 0.008;
-
-        if (p.y > canvas.height - 70) {
-          p.y = canvas.height - 70;
-          p.vy = -p.vy * 0.2;
-          p.vx *= 0.6;
-        }
-
-        if (p.alpha <= 0) {
-          paperShreds.splice(i, 1);
-          continue;
-        }
-
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rotation);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
-        ctx.restore();
-      }
-
-      // Ground Bijilis
-      for (let i = groundBijilis.length - 1; i >= 0; i--) {
-        if (!groundBijilis[i].update()) {
-          groundBijilis.splice(i, 1);
-        } else {
-          groundBijilis[i].draw();
-        }
-      }
 
       // Sky Shots
       for (let i = skyShots.length - 1; i >= 0; i--) {
@@ -762,12 +694,21 @@
         }
       }
 
-      // Sparks & Burst Particles
+      // Explosion Particles
       for (let i = particles.length - 1; i >= 0; i--) {
         if (!particles[i].update()) {
           particles.splice(i, 1);
         } else {
           particles[i].draw();
+        }
+      }
+
+      // Final Firework Text Particles ("HAPPY DIWALI")
+      for (let i = textParticles.length - 1; i >= 0; i--) {
+        if (!textParticles[i].update()) {
+          textParticles.splice(i, 1);
+        } else {
+          textParticles[i].draw();
         }
       }
 
